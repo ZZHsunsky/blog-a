@@ -1,0 +1,118 @@
+@bgDeep: #011935;
+@bgDeep2: #00343F;
+@bgLight: #1dB0B8;
+@bgLight2: #37c6c0;
+@textBg:#D0E9FF;
+
+.log-container{
+    position: relative;
+    width:50%;
+    overflow: hidden;
+    .log-list{
+        display: inline-block;
+        vertical-align: top;
+        width:100%;
+        transition: 1s;
+        &.log-list-close{
+            transform: translateX(-100%);
+        }
+    }
+    .log-detail{
+        display: inline-block;
+        vertical-align: top;
+        width:100%;
+        transition: 1s;
+        transform: translateX(100%);
+        &.log-detail-show{
+            transform: translateX(0);
+        }       
+    }
+}
+
+.tmlog{
+    width:100%;   
+    margin:0 auto;
+    margin-top: 20px;
+    .log-tags-icon{
+        padding: 20px;
+        padding-top:100px;
+        display: inline-block;
+        vertical-align: middle;
+        width: 100px;
+        height:100px;
+        margin-right: 20px;
+    }
+    .log-label{
+        display: inline-block;
+        vertical-align: top;
+        width:80%;
+        padding:20px;
+        border-radius: 20px;
+        height: 300px;
+        overflow: hidden;
+        &:hover{
+            background: @textBg;
+            cursor: pointer;
+        }
+        .log-time{
+            span{
+                margin-right: 20px;
+                &:nth-child(1){
+                    color:gray;
+                }
+                &:nth-child(2){
+                    color:@bgLight;
+                }
+                &:nth-child(3){
+                    float:right;
+                    visibility: hidden;
+                }
+            }
+        }
+        h2{
+            font-size: 26px;
+        }
+        p{
+            font-size: 18px;
+            text-indent: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width:1000px) {
+    .tmlog{
+        width:100%;
+        .log-tags-icon{
+            display: none;
+        }
+        .log-label{
+            padding:5%;
+            width:98%;
+            .log-time{
+                span{
+                    &:nth-child(3){
+                        visibility: visible;
+                    }
+                }
+            }
+        }     
+    }
+   
+}
+
+@keyframes fx-overnay{
+    0%{
+        visibility: visible;
+        height: 0%;
+    }
+    50%{
+        background: #107360;
+        color:white;
+        height: 50%;
+    }
+    100%{
+        background: #107360;
+        color:#FFF;
+        height: 100%;
+    }
+}
