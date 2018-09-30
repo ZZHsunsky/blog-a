@@ -117,7 +117,7 @@ export default class HomeContent extends React.Component{
                   delay={2200}
                   interval={30}
                 >
-                  Animation specification and components of Ant Design.
+                  Future depends on dream,so go to sleep.
                 </Texty>
               </div>
             )}

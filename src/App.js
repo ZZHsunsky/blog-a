@@ -33,7 +33,7 @@ export default class App extends React.Component {
         onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
       >
         <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} onClick={this.handleClick}>
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={this.handleClick}>
           <Menu.Item key="1">
             <Icon type="user" />
             <span className="nav-text">Show Home</span>
