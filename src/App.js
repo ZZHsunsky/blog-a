@@ -63,7 +63,7 @@ export default class App extends React.Component {
       <Layout>
         <Header style={{ background: '#fff', padding: 0 }} />
         <Content style={{ margin: '24px 16px 0' }}>
-          <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+          <div style={{ padding: 24, background: '#fff', minHeight: document.documentElement.clientHeight || document.body.clientHeight }}>
             {this.state.showContent[this.state.current-1]}
           </div>
         </Content>

@@ -7,7 +7,7 @@ import { Timeline,Avatar} from 'antd';
 export default class LogContent extends React.Component{
 
      state = {
-        show: true,
+        show: false,
         log:[],
         logDetail:{
             day:'',
@@ -19,10 +19,16 @@ export default class LogContent extends React.Component{
 
       handeOpenLog(element){
         return ()=>{
-          var show = this.state.show;
           this.setState({
-            show:!show,
+            show:true,
           })
+        }
+      }
+
+      handleCloseLog(){
+        return()=>{
+          console.log("this is log close");
+          this.setState({show:false});
         }
       }
 
@@ -40,15 +46,15 @@ export default class LogContent extends React.Component{
         if(this.state.log.length>0)
           return (
             <div className="log-container">
-              <div className={this.state.show === true?'log-list':'log-list log-list-close'}>
+              <div className={this.state.show === false?'log-list':'log-list log-list-close'}>
                 <QueueAnim delay={300} className="queue-simple">
                     {this.state.log.map((element,idx) =>{
                       return <SingleLog key={idx} data={element} handeOpenLog={this.handeOpenLog.bind(this)}></SingleLog>
                     })}
                 </QueueAnim>
               </div>
-              <div className={this.state.show === true?'log-detail':'log-detail log-detail-show'}>
-                  <LogDetail data={this.state.logDetail}></LogDetail>
+              <div className={this.state.show === true?'log-detail log-detail-show':'log-detail'}>
+                  <LogDetail data={this.state.logDetail} handeCloseLog={this.handleCloseLog.bind(this)} ></LogDetail>
               </div>
             </div>
           );
@@ -78,7 +84,7 @@ class SingleLog extends  React.Component{
 
 class LogDetail extends React.Component{
   render(){
-    return <div className="tmlog">
+    return <div className="tmlog" onClick={this.props.handeCloseLog()}>
             <div className="log-tags-icon">
               <Avatar shape="square" size={80} icon="user" />
             </div>
