@@ -6,109 +6,48 @@ import {Editor} from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
 import axios from 'axios'
 
-const Step = Steps.Step;
 
 export default class UpLoadlog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      current: 0,
-    };
-
-    this.steps = [{
-      title: 'First',
-      content: <MyEditor></MyEditor>
-    }, {
-      title: 'Second',
-      content: 'Second-content',
-    }, {
-      title: 'Last',
-      content: 'Last-content',
-    }];
-  }
-
-  uploadClick(){
-    var data = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-    axios.post('http://localhost:8081/uplog',{
-        data:data,
-    }).then( (res) => {
-        console.log(res);
-    }).catch( (error) => {
-        console.log(error);
-    })
-}
-
-  next() {
-    const current = this.state.current + 1;
-    this.setState({ current });
-  }
-
-  prev() {
-    const current = this.state.current - 1;
-    this.setState({ current });
-  }
-
-  render() {
-    const { current } = this.state;
-    return (
-      <div className="upload-log-steps">
-        <Steps current={current}>
-          {this.steps.map(item => <Step key={item.title} title={item.title}>{item.content}</Step>)}
-        </Steps>
-        <div className="steps-content">{this.steps[current].content}</div>
-        <div className="steps-action">
-          {
-            current < this.steps.length - 1
-            && <Button type="primary" onClick={() => this.next()}>Next</Button>
-          }
-          {
-            current === this.steps.length - 1
-            && <Button type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>
-          }
-          {
-            current > 0
-            && (
-            <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-              Previous
-            </Button>
-            )
-          }
-        </div>
-      </div>
-    );
-  }
-}
-
-class MyEditor extends React.Component{
-  state = {
-    editorState: EditorState.createEmpty(),
-  }
-
+  
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState,
     });
   };
 
-  render() {
-    const { editorState } = this.state;
-    return (
-      <div>
-        <Editor
-          editorState={editorState}
-          wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor"
-          onEditorStateChange={this.onEditorStateChange}
-        />
-      </div>
-    );
+  state = {
+    editorState: EditorState.createEmpty(),
+    idx:0,
+    class:[]
   }
-}
 
-class SelectLogTags extends React.Component{
+  onStepClick = (idx) =>{
+      return () =>{
+        this.setState({idx:idx});
+      }
+  }
   render(){
-    return <div>
-      
+    const  {editorState}  = this.state;
+    const stepCont = [<Editor
+      editorState={editorState}
+      wrapperClassName="demo-wrapper"
+      editorClassName="demo-editor"
+      onEditorStateChange={this.onEditorStateChange}
+    />, "haha",'wudi'];
+
+    return <div className="upload">
+      <div className="process-bar">
+        <ul>
+          <li className={this.state.idx > 0 ? "active":""} onClick={this.onStepClick(0)}><a id="step-one">1</a><div className="through"></div></li>
+          <li className={this.state.idx > 1 ? "active":""} onClick={this.onStepClick(1)}><a id="step-two">2</a><div className="through"></div></li>
+          <li onClick={this.onStepClick(2)}><a id="step-thr">3</a><div className="through"></div></li>
+        </ul>
+      </div>
+      <div className={this.state.idx > 1 ? "process-card active":"process-card"}>
+        {stepCont[this.state.idx]}
+      </div>
     </div>
   }
+
+  
 }
