@@ -1,10 +1,7 @@
 import React from 'react'
-import { List, Avatar, Button, Skeleton } from 'antd';
-
+import { List, Avatar, Icon, Skeleton } from 'antd';
+import './memory.less'
 import reqwest from 'reqwest';
-
-const count = 3;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat&noinfo`
 
 export default class MemoryContent extends React.Component{
     
@@ -15,76 +12,45 @@ export default class MemoryContent extends React.Component{
         list: [],
       }
     
-      componentDidMount() {
-        this.getData((res) => {
-          this.setState({
-            initLoading: false,
-            data: res.results,
-            list: res.results,
-          });
-        });
-      }
-    
-      getData = (callback) => {
-        reqwest({
-          url: fakeDataUrl,
-          type: 'json',
-          method: 'get',
-          contentType: 'application/json',
-          success: (res) => {
-            callback(res);
-          },
-        });
-      }
-    
-      onLoadMore = () => {
-        this.setState({
-          loading: true,
-          list: this.state.data.concat([...new Array(count)].map(() => ({ loading: true, name: {} }))),
-        });
-        this.getData((res) => {
-          const data = this.state.data.concat(res.results);
-          this.setState({
-            data,
-            list: data,
-            loading: false,
-          }, () => {
-            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-            // In real scene, you can using public method of react-virtualized:
-            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-            window.dispatchEvent(new Event('resize'));
-          });
-        });
-      }
-    
       render() {
-        const { initLoading, loading, list } = this.state;
-        const loadMore = !initLoading && !loading ? (
-          <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
-            <Button onClick={this.onLoadMore}>loading more</Button>
-          </div>
-        ) : null;
-    
-        return (
-          <List
-            className="demo-loadmore-list"
-            loading={initLoading}
-            itemLayout="horizontal"
-            loadMore={loadMore}
-            dataSource={list}
-            renderItem={item => (
-              <List.Item actions={[<a>edit</a>, <a>more</a>]}>
-                <Skeleton avatar title={false} loading={item.loading} active>
-                  <List.Item.Meta
-                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title={<a href="https://ant.design">{item.name.last}</a>}
-                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                  />
-                  <div>content</div>
-                </Skeleton>
-              </List.Item>
-            )}
-          />
-        );
+        return <div><MemoryCard></MemoryCard>
+                <MemoryCard></MemoryCard>
+                <MemoryCard></MemoryCard></div>
       }
+}
+
+class MemoryCard extends React.Component {
+  state = {
+    expand:false,
+  }
+  handleExpand(event){
+    var expand = !this.state.expand;
+    console.log(expand);
+    this.setState({expand:expand});
+  }
+  render(){
+   return <div className={this.state.expand === false ? "memory-card" :"memory-card card-expand" }>
+            <div className="crad-head">
+              <div className="card-head-img">
+                <Avatar shape="square" size={64} icon='user'></Avatar>
+              </div>
+              <div className='card-head-title'>
+                <h2>纪念日</h2>
+                <p>已经1213天</p>
+              </div>
+              <div className="card-head-button" onClick={this.handleExpand.bind(this)}>
+                <p>查看详情</p>
+                <Icon type="up" theme="outlined" />
+              </div>
+              <div className="card-head-desc">
+                查看详情
+              </div>
+            </div>
+            <div className="card-body">
+                <div className='card-body-tab'><Icon type="smile" theme="twoTone" />距离下一目标</div>
+                <div className='card-body-tab'><Icon type="hourglass" theme="twoTone" />修改日期</div>
+                <div className='card-body-tab'><Icon type="delete" theme="twoTone" />舍弃纪念日</div>
+            </div>
+          </div>
+  }
 }
