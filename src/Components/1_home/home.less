@@ -1,11 +1,35 @@
 #home-container{
-  .home-bg{
-      width:100%;
-      overflow: hidden;
-      height: 100vh;
-      img{
-        width:auto;
-        height: 100%;
-      }
+  .banner {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding: 0;
+    overflow: hidden;
+    backface-visibility: hidden;
   }
+  
+  /* Default image container */
+  .background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transform: translate3d(0,0,0) scale(1.25) rotate3d(1, 1, 1, 0deg);
+    background: black url(../../images/home/home-bg.jpg) no-repeat center center; 
+    background-size: cover;
+
+  }
+  h1{
+    position: absolute;
+    width:100%;
+    text-align: center;
+    color: #EEE;
+    margin: 0;
+    line-height: 40rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 .3rem black;
+  }
+  
+
 }

@@ -17,6 +17,12 @@
   -webkit-font-kerning: normal;
   -webkit-text-size-adjust: 100%;
 }
+.loop-type(@count) when (@count > 0){
+  &:nth-child(@{count}){
+    animation-delay: @count*0.25s;
+  }
+  .loop-type((@count - 1));
+}
 
 // === Menu <ul> =====
 input{
@@ -120,7 +126,6 @@ input{
     .container{
       margin-top: 20vh;
       height: 23rem;
-      border:1px solid white;
       overflow: hidden;
       font-size: 1.8rem;
       position: relative;
@@ -131,6 +136,52 @@ input{
         transition: top 0.5s ease-in-out;
         li{
           height: 23rem;
+          #nav-home-level{
+            height: 100%;
+            background: url(../../images/home/led-long-2.png) no-repeat;
+            line-height: 23rem;
+            background-position: 30% center;
+            background-size: 100px 100px;
+          }
+          #nav-log-level{
+            span{
+              display: inline-block;
+              height: 100%;
+              animation: stretch 10*.25s cubic-bezier(.4,1.4,.75,.9) infinite;
+              transform-origin: center;
+              font-size:50px;
+              line-height: 23rem;
+              .loop-type(10);
+            }
+          }
+          #nav-photo-level{
+            height: 100%;
+            position: relative;
+            span{
+              position: absolute;
+              top:0;
+              left:0;
+              width:100%;
+              &:nth-child(1){
+                display: block;
+                height: 100%;
+                background: url(../../images/home/photo-lebel-1.jpg) no-repeat;
+                background-position: center center;
+                background-size: auto 100%;
+                animation: picturn 8s ease-in-out infinite;
+              }
+              &:nth-child(2){
+                display: block;
+                opacity: 0;
+                height: 100%;
+                background: url(../../images/home/photo-lebel-2.jpg) no-repeat;
+                background-position: center center;
+                background-size: auto 100%;
+               // animation: picturn 8s ease-in-out infinite;
+                animation-delay: 8s;
+              }
+            }
+          }
         }
       }
     }
@@ -157,5 +208,27 @@ input:checked + .menu-button + .menu{
   }
   .menu-label{
     left: 0;
+  }
+}
+
+@keyframes stretch {
+  5% { 
+    transform: scaleX(500);
+    opacity: .1;
+  }
+  15% { 
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+@keyframes picturn{
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
   }
 }

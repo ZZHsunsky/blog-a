@@ -55,7 +55,7 @@ export default class PhotoContent extends React.Component{
         }else{
             return <div>
               Loading
-            </div>
+            </div>  
         }
        
     }
