@@ -1,4 +1,6 @@
 #home-container{
+  width:100%;
+  overflow: hidden;
   .banner {
     position: relative;
     width: 100%;
@@ -18,7 +20,6 @@
     transform: translate3d(0,0,0) scale(1.25) rotate3d(1, 1, 1, 0deg);
     background: black url(../../images/home/home-bg.jpg) no-repeat center center; 
     background-size: cover;
-
   }
   h1{
     position: absolute;
@@ -26,10 +27,74 @@
     text-align: center;
     color: #EEE;
     margin: 0;
-    line-height: 40rem;
+    line-height: 100vh;
     text-transform: uppercase;
     text-shadow: 0 0 .3rem black;
   }
   
 
+}
+
+.home-log-container{
+  width:1024px;
+  height:400px;
+  margin:30px auto;
+  margin-left:50%;
+  transform: translateX(-512px);
+  position: relative;
+  .log-img{
+    width:372px;
+    height:400px;
+    overflow: hidden;
+    background-position: center center;
+    background-size: cover;
+    position: absolute;
+    top:0;
+    left:0;
+    transition: 0.6s;
+  }
+  .log-content{
+    display: inline-block;
+    height:360px;
+    width:700px;
+    position: absolute;
+    left:322px;
+    top:20px;
+    background: white;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.2);
+    padding:40px 50px;
+    padding-left:75px;
+    p{
+      margin-top:30px;
+    }
+    h2{
+      display: inline-block;
+      font-weight:900;
+      background-image: linear-gradient(to right, rgb(31, 170, 250) 0, rgb(10, 70, 182) 100%);
+      background-position: 0 1.2em;
+      background-size: 0 100%;
+      background-repeat: no-repeat;
+      transition: background .5s;
+    }
+  }
+  &:nth-child(odd){
+    .log-img{
+      left:650px;
+    }
+    .log-content{
+      left:0;
+      padding-left: 50px;
+    }
+  }
+  &:hover{
+    cursor: pointer;
+    .log-img{
+      transform: scale(1.1);
+    }
+    .log-content{
+      h2{
+        background-size: 100% 100%;
+      }
+    }
+  }
 }

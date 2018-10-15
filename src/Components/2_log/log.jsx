@@ -14,6 +14,10 @@ export default class LogContent extends React.Component{
             title:'',
             text:'',
             time:'',
+        },
+        selecorStyle:{
+          left:'0',
+          width:'20px'
         }
       };
 
@@ -27,8 +31,13 @@ export default class LogContent extends React.Component{
 
       handleCloseLog(){
         return()=>{
-          console.log("this is log close");
           this.setState({show:false});
+        }
+      }
+
+      handleSelector(idx){
+        return () => {
+          console.log(idx);
         }
       }
 
@@ -46,6 +55,13 @@ export default class LogContent extends React.Component{
         if(this.state.log.length>0)
           return (
             <div className="log-container">
+                <nav className="tabs">
+                  <div className="selector" style={this.state.selecorStyle}></div>
+                  <a onClick={this.handleSelector(1)} className="active"><i className="fas fa-burn"></i>Avengers</a>
+                  <a onClick={this.handleSelector(2)}><i className="fas fa-bomb"></i>Guardians of The Galaxy</a>
+                  <a onClick={this.handleSelector(3)}><i className="fas fa-bolt"></i>Thor</a>
+                  <a onClick={this.handleSelector(4)}><i className="fab fa-superpowers"></i>Black Panther</a>
+              </nav>
               <div className={this.state.show === false?'log-list':'log-list log-list-close'}>
                 <QueueAnim delay={300} className="queue-simple">
                     {this.state.log.map((element,idx) =>{
