@@ -78,7 +78,7 @@ input{
     background: white;
     top:0;
     right:-50vw;
-    transition: right 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     text-align: center;
     color:black;
     font-weight: 700;
@@ -120,12 +120,12 @@ input{
     background: black;
     top:0;
     left:-50vw;
-    transition: left 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
     text-align: center;
     color:white;
     .container{
       margin-top: 20vh;
-      height: 23rem;
+      height: 29rem;
       overflow: hidden;
       font-size: 1.8rem;
       position: relative;
@@ -133,13 +133,15 @@ input{
         margin: 0;
         position: absolute;
         top:0;
-        transition: top 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        padding-left: 0;
         li{
-          height: 23rem;
+          display: block;
+          height: 29rem;
           #nav-home-level{
             height: 100%;
             background: url(../../images/home/led-long-2.png) no-repeat;
-            line-height: 23rem;
+            line-height: 29rem;
             background-position: 30% center;
             background-size: 100px 100px;
           }
@@ -150,7 +152,7 @@ input{
               animation: stretch 10*.25s cubic-bezier(.4,1.4,.75,.9) infinite;
               transform-origin: center;
               font-size:50px;
-              line-height: 23rem;
+              line-height: 25rem;
               .loop-type(10);
             }
           }
@@ -211,6 +213,109 @@ input:checked + .menu-button + .menu{
   }
 }
 
+@media screen and (max-width: 600px) {
+  input{
+    top:15px;
+    right:20px;
+    opacity: 0;
+  }
+  .hamburger{
+    background: #fff;
+    top:35px;
+    right:20px;
+    &:after,&:before{
+      background: #fff;
+    }
+  }
+  .menu{
+    ul{
+      margin-top:0;
+    }
+    .menu-body{
+      width:100vw;
+      height: 70vh;
+      left:0;
+      top:100vh;
+      transition-delay: 0.8s;
+      font-size: 1.2rem;
+      ul{
+        li{
+          margin: 10px 0;
+          span{
+            top:0;
+          }
+        }
+      }
+    }
+    .menu-label{
+      width:100vw;
+      height: 30vh;
+      left:0vw;
+      top:-30vh;
+      transition-delay: 0.8s;
+      .container{
+        margin-top:0;
+        margin:0 auto;
+        height: 100%;
+        width: 150px;
+        font-size: 1.2rem;
+        ul{
+          li{
+            width:150px;
+            height: 30vh;
+            position: absolute;
+            &:nth-child(1){
+              left:0;
+              #nav-home-level{
+                line-height: 40vh;
+                background-size: 80px 80px;
+                background-position: center 30px;
+              }
+            }
+            &:nth-child(2){
+              left:150px;
+              #nav-log-level{
+                width: 100%;
+                overflow: hidden;
+                span{
+                  font-size:1.3rem;
+                  line-height: 30vh;
+                }
+              }
+            }
+            &:nth-child(3){
+              left:300px;
+            }
+            &:nth-child(4){
+              left:450px;
+            }
+            &:nth-child(5){
+              left:600px;
+            }
+            &:nth-child(6){
+              left:750px;
+            }
+            &:nth-child(7){
+              left:900px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  input:checked + .menu-button + .menu{
+    .menu-body{
+      animation: 0.5s up-no-delay;
+      top:30vh;
+    }
+    .menu-label{
+      animation: 0.5s down-no-delay;
+      top:0;
+    }
+  }
+
+}
 @keyframes stretch {
   5% { 
     transform: scaleX(500);
@@ -231,4 +336,12 @@ input:checked + .menu-button + .menu{
   100%{
     opacity: 0;
   }
+}
+@keyframes up-no-delay{
+  0%{top:100vh};
+  100%{top:30vh}
+}
+@keyframes down-no-delay{
+  0%{top:-30vh};
+  100%{top:0}
 }

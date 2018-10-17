@@ -63,7 +63,7 @@ export default class LogContent extends React.Component{
                   <a onClick={this.handleSelector(4)}><i className="fab fa-superpowers"></i>Black Panther</a>
               </nav>
               <div className={this.state.show === false?'log-list':'log-list log-list-close'}>
-                <QueueAnim delay={300} className="queue-simple">
+                <QueueAnim delay={5000} className="queue-simple">
                     {this.state.log.map((element,idx) =>{
                       return <SingleLog key={idx} data={element} handeOpenLog={this.handeOpenLog.bind(this)}></SingleLog>
                     })}

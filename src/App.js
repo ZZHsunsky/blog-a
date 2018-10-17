@@ -19,9 +19,7 @@ export default class App extends React.Component {
   }
 
   handleClick(e){
-    return () =>{
-      this.setState({current:Number(e)});
-    }
+    this.setState({current:Number(e)});
   }
   render() {
     return (
