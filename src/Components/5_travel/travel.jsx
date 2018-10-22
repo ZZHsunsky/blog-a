@@ -15,14 +15,14 @@ export default class TravelContent extends React.Component{
         this.initalECharts();
     }
     initalECharts() {
-        const data = [
-            {name: '上海', area: '华东大区', type: 'areaCenterCity'},
-            {name: '深圳', area: '华南大区', type: 'areaCenterCity'},
-            {name: '成都', area: '华西大区', type: 'areaCenterCity'},
-            {name: '北京', area: '华北大区', type: 'areaCenterCity'},
-            {name: '武汉', area: '华中大区', type: 'areaCenterCity'},
-            {name: '沈阳', area: '东北大区', type: 'areaCenterCity'},
-        ];
+        // const data = [
+        //     {name: '上海', area: '华东大区', type: 'areaCenterCity'},
+        //     {name: '深圳', area: '华南大区', type: 'areaCenterCity'},
+        //     {name: '成都', area: '华西大区', type: 'areaCenterCity'},
+        //     {name: '北京', area: '华北大区', type: 'areaCenterCity'},
+        //     {name: '武汉', area: '华中大区', type: 'areaCenterCity'},
+        //     {name: '沈阳', area: '东北大区', type: 'areaCenterCity'},
+        // ];
         echarts.registerMap('zhongguo', geoJson);
         for(let item of provienceData){
             if(item.area === '东北大区'){

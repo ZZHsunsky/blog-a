@@ -2,7 +2,7 @@ import React from 'react';
 import QueueAnim from 'rc-queue-anim';
 import axios from 'axios';
 import './log.less';
-import { Timeline,Avatar} from 'antd';
+import { Avatar} from 'antd';
 
 export default class LogContent extends React.Component{
 

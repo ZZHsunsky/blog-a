@@ -1,6 +1,6 @@
 import React from 'react'
 import './nav.less'
-
+import {NavLink} from 'react-router-dom'
 
 export default class TodoContent extends React.Component{
 
@@ -26,16 +26,14 @@ export default class TodoContent extends React.Component{
         var checked = !this.state.checked;
         this.setState({checked});
     }
-    handleMenuSwitch(idx){
-        return() => {
-            this.setState({checked:false});
-            this.props.switchContent(idx);
-        }
+
+    handleMenuSwitch(){
+        this.setState({checked:false});
     }
     render()
     {
         return <div>
-            <input type="checkbox" checked={this.state.checked} onChange={this.handleChecked.bind(this)}></input>
+            <input id="menu-check" type="checkbox" checked={this.state.checked} onChange={this.handleChecked.bind(this)}></input>
 
             <div className="menu-button">
                 <span className="hamburger"></span>
@@ -44,13 +42,13 @@ export default class TodoContent extends React.Component{
             <div className="menu">
                 <div className="menu-body">
                     <ul>
-                        <li onMouseEnter={this.handleMouseHover(1)} onClick={this.handleMenuSwitch(1)}><span>01</span>Home</li>
-                        <li onMouseEnter={this.handleMouseHover(2)} onClick={this.handleMenuSwitch(2)}><span>02</span>心情·日志</li>
-                        <li onMouseEnter={this.handleMouseHover(3)} onClick={this.handleMenuSwitch(3)}><span>03</span>瞬间·回忆</li>
-                        <li onMouseEnter={this.handleMouseHover(4)} onClick={this.handleMenuSwitch(4)}><span>04</span>往事·时间</li>
-                        <li onMouseEnter={this.handleMouseHover(5)} onClick={this.handleMenuSwitch(5)}><span>05</span>足迹·旅行</li>
-                        <li onMouseEnter={this.handleMouseHover(6)} onClick={this.handleMenuSwitch(6)}><span>06</span>未来-可期</li>
-                        <li onMouseEnter={this.handleMouseHover(7)} onClick={this.handleMenuSwitch(7)}><span>06</span>主人·你好</li>
+                        <li onMouseEnter={this.handleMouseHover(1)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/"><span>01</span>Home</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(2)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Log"><span>02</span>心情·日志</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(3)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Photo"><span>03</span>瞬间·回忆</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(4)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Meomory"><span>04</span>往事·时间</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(5)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Travel"><span>05</span>足迹·旅行</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(6)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Todo"><span>06</span>未来-可期</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(7)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Manage"><span>06</span>主人·你好</NavLink></li>
                     </ul>
                 </div>
                 <div className="menu-label">
@@ -90,13 +88,13 @@ export default class TodoContent extends React.Component{
     //                 <span className="hamburger"></span>
     //             </span>
     //             <ul>
-    //                 <li onClick={this.handleMenuSwitch(1)}><a>Home</a></li>
-    //                 <li onClick={this.handleMenuSwitch(2)}><a>心情·日志</a></li>
-    //                 <li onClick={this.handleMenuSwitch(3)}><a>瞬间·回忆</a></li>
-    //                 <li onClick={this.handleMenuSwitch(4)}><a>往事·时间</a></li>
-    //                 <li onClick={this.handleMenuSwitch(5)}><a>足迹·旅行</a></li>
-    //                 <li onClick={this.handleMenuSwitch(6)}><a>未来·可期</a></li>
-    //                 <li onClick={this.handleMenuSwitch(7)}><a>主人·你好</a></li>
+    //                 <li1)}><a>Home</a></li>
+    //                 <li2)}><a>心情·日志</a></li>
+    //                 <li3)}><a>瞬间·回忆</a></li>
+    //                 <li4)}><a>往事·时间</a></li>
+    //                 <li5)}><a>足迹·旅行</a></li>
+    //                 <li6)}><a>未来·可期</a></li>
+    //                 <li7)}><a>主人·你好</a></li>
     //             </ul>
     //         </label>
     //     </div>

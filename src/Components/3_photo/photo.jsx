@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Card,Avatar,Icon} from 'antd';
+import {Card,Avatar} from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import './photo.less'
 const {Meta} = Card;

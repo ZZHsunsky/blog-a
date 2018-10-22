@@ -1,10 +1,8 @@
 import React from 'React'
-import { Steps, Button, message } from 'antd';
 import './uploadlog.less'
-import {EditorState,convertToRaw} from 'draft-js';
+import {EditorState,} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg'
-import draftToHtml from 'draftjs-to-html'
-import axios from 'axios'
+
 
 
 export default class UpLoadlog extends React.Component {

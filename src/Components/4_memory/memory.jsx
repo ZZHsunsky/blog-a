@@ -1,7 +1,7 @@
 import React from 'react'
-import { List, Avatar, Icon, Skeleton } from 'antd';
+import { Avatar, Icon, } from 'antd';
 import './memory.less'
-import reqwest from 'reqwest';
+
 
 export default class MemoryContent extends React.Component{
     

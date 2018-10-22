@@ -25,7 +25,7 @@
 }
 
 // === Menu <ul> =====
-input{
+#menu-check{
   position: fixed;
   top: 30px;
   right: 50px;
@@ -96,6 +96,9 @@ input{
         text-align: left;
         padding-left: 30% + 5rem;
         transition: padding 0.3s ease-in-out;
+        a{
+          color:black;
+        }
         span{
           position: absolute;
           left:20%;
@@ -214,7 +217,7 @@ input:checked + .menu-button + .menu{
 }
 
 @media screen and (max-width: 600px) {
-  input{
+  #menu-check{
     top:15px;
     right:20px;
     opacity: 0;
@@ -240,7 +243,7 @@ input:checked + .menu-button + .menu{
       font-size: 1.2rem;
       ul{
         li{
-          margin: 10px 0;
+          margin: 2% 0;
           span{
             top:0;
           }
@@ -267,9 +270,10 @@ input:checked + .menu-button + .menu{
             &:nth-child(1){
               left:0;
               #nav-home-level{
+                color:transparent;
                 line-height: 40vh;
                 background-size: 80px 80px;
-                background-position: center 30px;
+                background-position: center center;
               }
             }
             &:nth-child(2){
@@ -306,11 +310,11 @@ input:checked + .menu-button + .menu{
   
   input:checked + .menu-button + .menu{
     .menu-body{
-      animation: 0.5s up-no-delay;
+      animation: 1.5s up-no-delay;
       top:30vh;
     }
     .menu-label{
-      animation: 0.5s down-no-delay;
+      animation: 1.5s down-no-delay;
       top:0;
     }
   }
