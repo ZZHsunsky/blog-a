@@ -80,23 +80,4 @@ export default class TodoContent extends React.Component{
             </div>
         </div>
     }
-    // render(){
-    //     return <div>
-    //         <label>
-    //             <input type="checkbox"></input>
-    //             <span className="menu">
-    //                 <span className="hamburger"></span>
-    //             </span>
-    //             <ul>
-    //                 <li1)}><a>Home</a></li>
-    //                 <li2)}><a>心情·日志</a></li>
-    //                 <li3)}><a>瞬间·回忆</a></li>
-    //                 <li4)}><a>往事·时间</a></li>
-    //                 <li5)}><a>足迹·旅行</a></li>
-    //                 <li6)}><a>未来·可期</a></li>
-    //                 <li7)}><a>主人·你好</a></li>
-    //             </ul>
-    //         </label>
-    //     </div>
-    // }
 }

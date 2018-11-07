@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter basename='/Denghuo'>
+      <BrowserRouter>
         <Layout style={{background:'#fff'}}>   
             <Nav></Nav>
             <Content>
