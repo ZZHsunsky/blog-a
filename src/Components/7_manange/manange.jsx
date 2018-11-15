@@ -6,7 +6,7 @@ import LoginPanel from "./Component/loginPanel"
 import Function from "./Component/funcition"
 export default class Manage extends React.Component{
       state = {
-        hasLogin:false,
+        hasLogin:true,
         userInfo:{},
       }
       handleChangeLogin = () =>{
