@@ -58,7 +58,8 @@ export default class FunLog extends React.Component {
         if(status == 2){
             return () => {
                 const {title, group, imgName} = this.state;
-                const content = this.state.editorState.toHTML()
+                const content = this.state.editorState.toHTML();
+                const master = "zzh";
                 if(!title){
                     message.warning('未输入标题！');
                 }else if(!group){
@@ -68,7 +69,7 @@ export default class FunLog extends React.Component {
                 }else{
                     this.setState({load:0});
                     axios.post("http://localhost:8900/appendLog",qs.stringify({
-                        title, group, imgName, content
+                        title, group, imgName, content, master
                     })
                     ).then( res =>{
                             this.setState({load:1});

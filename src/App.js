@@ -3,7 +3,7 @@ import './App.css'
 import { Layout,  } from 'antd';
 import Nav from './Components/navagition/nav'
 import Home from './Components/1_home/home'
-import Log from './Components/2_log/log'
+import Log from './Components/2_log/logs'
 import Photo from './Components/3_photo/photo'
 import Memory from './Components/4_memory/memory'
 import Travel from './Components/5_travel/travel'

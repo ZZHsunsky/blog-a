@@ -6,42 +6,47 @@
 
 .log-container{
     position: relative;
+    padding-top: 30px;
     padding-bottom: 20px;
-    width:100%;
+    width:100vw;
     overflow: hidden;
+    embed{
+        width: 100%;
+    }
     .log-list{
-        display: inline-block;
-        vertical-align: top;
-        width:100%;
+        overflow-y: scroll;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        top: 0;
         transition: 1s;
         &.log-list-close{
-            transform: translateX(-100%);
+            pointer-events: none;
         }
     }
     .log-detail{
-        display: inline-block;
-        vertical-align: top;
-        position: absolute;
-        left:102%;
-        width:100%;
+        opacity: 0;
         transition: 1s;
         &.log-detail-show{
-            transform: translateX(-98%);
+            opacity: 1;
         }       
     }
 }
 
-.tmlog{
-    width:98%;   
-    margin-top: 20px;    
-    transition:all 0.3s;
+.tmlog{    
+    transition:all 1s;
+    border: 1px solid #e8e8e8;
+    border-bottom: none;
+    background: white;
     &:hover{
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         cursor: pointer;
         h2{
             font-size:28px;
             color:@bgLight;
         }
+    }
+    &:last-child{
+        border-bottom: 1px solid #e8e8e8;
     }
     .log-tags-icon{
         padding: 20px;
@@ -86,6 +91,11 @@
     }
 }
 
+.log-oepn{
+    &:hover{
+        cursor: pointer;
+    }
+}
 @media screen and (max-width:1000px) {
     .tmlog{
         width:100%;
