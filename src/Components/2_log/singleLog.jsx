@@ -5,20 +5,19 @@ export default class SingleLog extends  React.Component{
 
 
     open(){
-      const _ = this.props.idx;
-      this.setState({style:{opacity: 0}});
+      const _ = this.props.data && this.props.data.idx;
       this.props.openLog(this, _);
     }
   
     close(){
       this.setState({style:{}});
     }
-  
+         
     render(){
       const data = this.props.data || {};
-      const transform = data.type === 0 ? "translateY(-100vh)" : "translateY(100vh)";
-  
-    return <div className="tmlog" onClick={this.open.bind(this)} style={this.state.style}>
+      const style = data.style || {};
+
+    return <div className="tmlog" onClick={this.open.bind(this)} style={style}>
         <div className="log-tags-icon">
             <Avatar shape="square" size={80} icon="user" />
         </div>

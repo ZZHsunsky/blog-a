@@ -17,7 +17,6 @@ export default class LogContent extends React.Component{
             const data =res.data || [];
             this.setState({
               logs: data,
-              logDetail: data[0],
               selectLogIdx: 0,
             });
           })
@@ -25,14 +24,14 @@ export default class LogContent extends React.Component{
 
     getLogList(logs, open){
         const selectLogIdx = this.state.selectLogIdx;
-        const className = open === true ? 'log-list':'log-list log-list-close';
+        const className = open === true ? 'log-list log-list-close':'log-list';
         const logsList = logs.map( (log, _) =>{
-            let transform = "translateY(0)";
+            let style = {};
             if(open){
-                if(_ < selectLogIdx) transform = "translateY(-100vh)";
-                if(_ > selectLogIdx) transform = "translateY(100vh)";
+                if(_ === selectLogIdx) style= {opacity: 0, transform: "translateY(100vh)"};
+                if(_  >  selectLogIdx) style.transform = "translateY(200vh)";
             }
-            log.transform = transform;
+            log.style = style;
             log.idx = _;
             return <SingleLog 
                         key={_}
@@ -67,7 +66,7 @@ export default class LogContent extends React.Component{
     closeLog(){
         this.state.elem && this.state.elem.close(); 
         const logs = this.state.logs || [];
-        this.setState({open:false});
+        this.setState({open: false, logDetail: {}});
     }
 
     render(){
