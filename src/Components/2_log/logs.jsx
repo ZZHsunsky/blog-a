@@ -74,8 +74,8 @@ export default class LogContent extends React.Component{
         const logList = this.getLogList(logs || [], open);
         const openLog = this.getOpenLog(logDetail, open);
         return ( logs || [] ).length > 0 ? <div className="log-container">
-            {logList}
             {openLog}
+            {logList}
         </div> : <div> loading </div>
     }
 }
