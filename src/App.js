@@ -24,7 +24,7 @@ export default class App extends React.Component {
         <Layout style={{background:'#fff'}}>   
             <Nav></Nav>
             <Content>
-            <div style={{background: '#fff', minHeight: document.documentElement.clientHeight || document.body.clientHeight }}>
+            <div style={{background: "#fafafa", minHeight: document.documentElement.clientHeight || document.body.clientHeight }}>
               <Route exact path="/" component={Home}></Route>
               <Route  path="/Log" component={Log}></Route>
               <Route  path="/Photo" component={Photo}></Route>
@@ -33,10 +33,7 @@ export default class App extends React.Component {
               <Route  path="/ToDo" component={ToDo}></Route>
               <Route  path="/Manage" component={Manage}></Route>
             </div>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>
-                  DWJ-ZZH
-            </Footer>     
+            </Content>    
         </Layout>
       </BrowserRouter>
     );

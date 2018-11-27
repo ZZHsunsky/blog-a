@@ -4,7 +4,8 @@ import axios from 'axios';
 import './log.less';
 import SingleLog from "./singleLog";
 import OpenLog from "./openLog";
-
+import {AjaxGetRequest} from "../service";
+import {URLMAPCODE} from "../urlMap";
 export default class LogContent extends React.Component{
 
     state = {
@@ -12,14 +13,14 @@ export default class LogContent extends React.Component{
         logDetail: {},
     }
     componentDidMount(){
-        axios.get('http://localhost:8900/getLogs')
-          .then(res => {
+        const success = res => {
             const data =res.data || [];
             this.setState({
               logs: data,
               selectLogIdx: 0,
             });
-          })
+        }
+        AjaxGetRequest(URLMAPCODE.GET_LOGS, {}, success, () => {});
     }
 
     getLogList(logs, open){
@@ -40,7 +41,6 @@ export default class LogContent extends React.Component{
                     />
         })
         return <div className={className}>
-            <embed src={require("../../images/logo.svg")} width="300" height="100" type="image/svg+xml"/>
             <QueueAnim delay={5000} className="queue-simple">
                {logsList}
             </QueueAnim>
@@ -65,8 +65,11 @@ export default class LogContent extends React.Component{
 
     closeLog(){
         this.state.elem && this.state.elem.close(); 
-        const logs = this.state.logs || [];
-        this.setState({open: false, logDetail: {}});
+        this.setState({open: false,});
+        const self = this;
+        setTimeout( () => {
+            self.setState({logDetail:{}})
+        }, 1500)
     }
 
     render(){

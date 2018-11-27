@@ -1,8 +1,8 @@
 import {URLMAP} from "./urlMap"
 import axios from 'axios';
 
-const serverIP = "http://localhost";
-const port = "8081";
+const serverIP = "http://39.108.133.245";
+const port = "8900";
 
 export function AjaxGetRequest(map,queryObj,succFunc,errFunc){
     var url = serverIP + ":" + port + ( URLMAP[map] || "404" );

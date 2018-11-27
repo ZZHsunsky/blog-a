@@ -52,7 +52,7 @@ export default class uploadpic extends React.Component {
         listType="picture-card"
         className="pic-uploader"
         showUploadList={false}
-        action="http://localhost:8900/upload"
+        action="http://39.108.133.245:8900/upload"
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
       >

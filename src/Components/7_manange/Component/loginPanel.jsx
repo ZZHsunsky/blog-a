@@ -2,7 +2,7 @@ import React from 'react'
 import {AjaxGetRequest} from "../../service";
 import {URLMAPCODE} from "../../urlMap"
 import {ACTIONCODE} from "../../actionMap";
-import {message} from "antd";
+import {message, Input} from "antd";
 
 export default class LoginPanel extends React.Component{
     state = {
@@ -36,12 +36,18 @@ export default class LoginPanel extends React.Component{
     render(){
       return <div id="log-container">
        <div id="login-panel">
-        <div className="login-img"></div>
+        <h1>
+          Denghuo
+        </h1>
+        <h2>
+          Welcome Back!
+          <em>SignIn To Be Master~ </em>
+        </h2>
         <div className="form-container">
-          <input id="login-name" type="text" placeholder="UserName" onFocus={this.handleChangeFocus(0)}></input>
-          <input id="login-password" type="password" placeholder="Password" onFocus={this.handleChangeFocus(1)}></input>
+          <Input id="login-name" type="text" placeholder="UserName" onFocus={this.handleChangeFocus(0)}></Input>
+          <Input id="login-password" type="password" placeholder="Password" onFocus={this.handleChangeFocus(1)}></Input>
           <svg width="390" height="549" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
-             <rect id='rect' className={ this.state.focus === 0 ? "rect1" : "rect2"}   x="45px"  y="300px"   rx="27" ry="27" width="300px" height="50px" style={{stroke:"#000",strokeWidth:"1px",fill:"transparent"}} />
+             <rect id='rect' className={ this.state.focus === 0 ? "rect1" : "rect2"}   y="300px"   rx="27" ry="27" width="300px" height="50px" style={{stroke:"rgb(107, 146, 170)",strokeWidth:"1px",fill:"transparent"}} />
           </svg>
           <div className="sign-in-button" onClick={this.handleVerfiyUser.bind(this)} >SignIn</div>
         </div>

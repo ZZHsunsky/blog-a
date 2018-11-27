@@ -1,6 +1,8 @@
 import React from 'react'
-import {Input, Button, Icon, AutoComplete, message} from "antd";
+import {Input, Button, Icon, AutoComplete, message, Upload} from "antd";
 import BraftEditor from 'braft-editor'
+import { ContentUtils } from 'braft-utils'
+import { transformFileToDataUrl } from "../../uploadImg";
 import UploadPic from "./uploadPic";
 import axios from "axios"
 import qs from "qs"
@@ -23,7 +25,7 @@ export default class FunLog extends React.Component {
 
     componentWillMount(){
         const self = this;
-        axios.get("http://localhost:8900/getLogGroup").then( res =>{
+        axios.get("http://39.108.133.245:8900/getLogGroup").then( res =>{
             self.setState({logGroup: res.data || []});
         })
     }
@@ -54,12 +56,20 @@ export default class FunLog extends React.Component {
         return this.finishComponent[load];
     }
 
+    // 即将上传日志
     handleEditor(status){
         if(status == 2){
             return () => {
                 const {title, group, imgName} = this.state;
                 const content = this.state.editorState.toHTML();
-                const master = "zzh";
+                const master = "dwj";
+                const model = {
+                    day: new Date().toLocaleDateString(),
+                    time: new Date().toLocaleTimeString(),
+                    like: 0,
+                    read: 0,
+                    comment: 0,
+                }
                 if(!title){
                     message.warning('未输入标题！');
                 }else if(!group){
@@ -68,8 +78,8 @@ export default class FunLog extends React.Component {
                     message.warning('未选择日志封面！');
                 }else{
                     this.setState({load:0});
-                    axios.post("http://localhost:8900/appendLog",qs.stringify({
-                        title, group, imgName, content, master
+                    axios.post("http://39.108.133.245:8900/appendLog",qs.stringify({
+                        title, group, imgName, content, master, ...model
                     })
                     ).then( res =>{
                             this.setState({load:1});
@@ -103,11 +113,45 @@ export default class FunLog extends React.Component {
         this.setState({group})
     }
 
+    handleUpload = (dataUrl) => {
+        this.setState({
+            editorState: ContentUtils.insertMedias(this.state.editorState, [{
+              type: 'IMAGE',
+              url: dataUrl
+            }])
+        })
+    }
+    uploadHandler = (param) => {
+        if (!param.file) {
+          return false
+        }
+        else{
+            transformFileToDataUrl(param.file, this.handleUpload);
+        }   
+    }
+
   render () {
 
     const controls = [
-      'bold','text-color', 'underline', 'list-ul', 'code', 'separator', 'link', 'separator', 'emoji', 'media'
+      'bold','text-color', 'underline', 'list-ul', 'code', 'separator', 'link', 'separator', 'emoji',
     ]
+    const extendControls = [
+        {
+          key: 'antd-uploader',
+          type: 'component',
+          component: (
+            <Upload
+              accept="image/*"
+              showUploadList={false}
+              customRequest={this.uploadHandler}
+            >
+              <button type="button" className="control-item button upload-button" data-title="插入图片">
+                <Icon type="picture" theme="filled" />
+              </button>
+            </Upload>
+          )
+        }
+      ]
     const { editorState } = this.state
     const status = this.state.status;
     const preComponent = this.getPrepareComponent();
@@ -120,6 +164,7 @@ export default class FunLog extends React.Component {
                     controls={controls}
                     contentStyle={{height: "600px", boxShadow: 'inset 0 1px 3px rgba(0,0,0,.1)'}}
                     onChange={this.handleInput}
+                    extendControls={extendControls}
                 />
                 <Button type="primary" shape="circle" icon="right" style={{right:"15px",position:"absolute"}} onClick={this.handleEditor(1)}/>
             </div>

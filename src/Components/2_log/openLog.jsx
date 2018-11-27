@@ -4,14 +4,15 @@ import { Icon} from 'antd';
 export default class LogDetail extends React.Component{
     render(){
       const data = this.props.data || {}; 
-      const imgUrl = data.imgName ? require("../../images/logs/" + data.imgName) : "";
+      const imgUrl = data.imgName ? "http://192.168.31.221:8900/pic/" + data.imgName : "";
       const masterUrl = data.master ? data.master : "null";
       const style = data.imgName ? {backgroundImage: 'url(' + imgUrl + ')'} : {};
+      console.log(style);
       return <div className="open-log">
               <div className="log-bg" style={style}>
                 <div className="zhezhao"></div>
                 <div className="head">
-                  <span onClick={this.props.closeLog}><i>BACK</i></span>
+                  <span onClick={this.props.closeLog}><Icon type="menu-fold" /></span>
                   <span><embed src={require("../../images/logs/logo-word.svg") }/></span>
                   <span><Icon type="message" /></span>
                 </div>
@@ -30,7 +31,8 @@ export default class LogDetail extends React.Component{
                   <img src={require(`../../images/user/${masterUrl}.png`) }></img>
                   <ul>
                     <li>{data.master}</li>
-                    <li>{data.day} &nbsp; {data.time} &nbsp; Read:{data.read} &nbsp; Comment:{data.comment}</li>
+                    <li>{data.day} &nbsp; {data.time} &nbsp; </li>
+                    <li>Read:{data.read} &nbsp; Comment:{data.comment}</li>
                   </ul>
                 </div>
                 <div className="log-title">{data.title}</div>
