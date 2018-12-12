@@ -4,32 +4,55 @@
   .banner {
     position: relative;
     width: 100%;
-    height: 100vh;
     padding: 0;
     overflow: hidden;
     backface-visibility: hidden;
+    background: black url(../../images/home/home-bg.jpg) no-repeat center center; 
+    background-size: cover;
   }
   
   /* Default image container */
   .background {
     width: 100%;
+    height: 200%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: url(../../images/home/kongming.png);
+    background-size: auto 100%;
+    background-position: center top;
+    background-repeat: repeat-y;
+    animation: kongming 8s infinite linear;
+  }
+  .background-two{
+    width: 100%;
     height: 100%;
     position: absolute;
     left: 0px;
     top: 0px;
-    transform: translate3d(0,0,0) scale(1.25) rotate3d(1, 1, 1, 0deg);
-    background: black url(../../images/home/home-bg.jpg) no-repeat center center; 
+    background:  url(../../images/home/wuyan.png) no-repeat center center;
     background-size: cover;
   }
   h1{
     position: absolute;
+    top: 30%;
+    bottom: 0;
+    embed{
+      width: 50%;
+      display: block;
+      max-width: 300px;
+      margin: auto;
+    }
+    span{
+      color: antiquewhite;
+      display: inline-block;
+      padding: 25px;
+    }
     width:100%;
     text-align: center;
-    color: #EEE;
-    margin: 0;
-    line-height: 100vh;
+    color: white;
+    margin: auto;
     text-transform: uppercase;
-    text-shadow: 0 0 .3rem black;
   }
   
 
@@ -131,13 +154,27 @@
     .log-content{
       position: relative;
       width: 100%;
+      height: auto;
       top:0;
       left:0;
+      padding-left: 50px;
     }
     &:nth-child(odd){
       .log-img{
         left:0;
       }
     }
+  }
+}
+
+@keyframes kongming {
+  0%{
+    transform: translateY(0)
+  }
+  50%{
+    transform: translateY(-25%)
+  }
+  100%{
+    transform: translateY(-50%)
   }
 }

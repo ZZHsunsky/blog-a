@@ -1,0 +1,36 @@
+.Map-container{
+  background-image: linear-gradient(25deg, #675df8, #6184f8, #4fa8f7, #16cbf5);
+  height: 100vh;
+  width: 100%;
+  overflow-x: scroll;
+  text-align: center;
+  position: relative;
+  svg{
+    padding-top: 5%;
+    height: 95%;
+    width: auto;
+    margin: auto;  
+    -webkit-filter: drop-shadow( -5px -5px 5px rgb(87, 86, 86) ); 
+    filter: drop-shadow( -5px -5px 5px rgb(87, 86, 86) );
+  }
+  .map-pin{
+    position: absolute;
+    // animation: pin 3s infinite;
+  }
+}
+
+.Container{
+  ::-webkit-scrollbar{
+    display: none;
+  }
+}
+
+@keyframes pin{
+  0%{
+    transform: scale(1)
+  }50%{
+    transform: scale(10);
+  }100%{
+    transform: scale(30);
+  }
+}

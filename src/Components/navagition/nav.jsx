@@ -1,6 +1,7 @@
 import React from 'react'
 import './nav.less'
 import {NavLink} from 'react-router-dom'
+import navHandle from "./navHandle";
 
 export default class TodoContent extends React.Component{
 
@@ -11,6 +12,11 @@ export default class TodoContent extends React.Component{
         },
         checked:false,
     }
+
+    componentDidMount(){
+       navHandle.setView(this);
+    }
+
     handleMouseHover(idx){
         return () =>{
             var ulStyle = {}
@@ -30,12 +36,17 @@ export default class TodoContent extends React.Component{
     handleMenuSwitch(){
         this.setState({checked:false});
     }
-    render()
-    {
-        return <div>
-            <input id="menu-check" type="checkbox" checked={this.state.checked} onChange={this.handleChecked.bind(this)}></input>
 
-            <div className="menu-button">
+    render() {
+
+        const className = this.state.className || "";
+
+        return <div>
+            <input id="menu-check" type="checkbox" className={className} checked={this.state.checked} onChange={this.handleChecked.bind(this)}></input>
+
+            <div className={"menu-button " + className}>
+                <span className="hamburger"></span>
+                <span className="hamburger"></span>
                 <span className="hamburger"></span>
             </div>
 

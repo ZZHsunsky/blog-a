@@ -8,7 +8,7 @@
     height: 100vh;
     width: 100vw;
     position: relative;
-    background: #AEc4d2;
+    background: white;
 }
 #login-panel{
     height: 600px;
@@ -24,7 +24,12 @@
     box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
     h1{
         margin-left: 5%;
-        color: rgb(107, 146, 170);
+        color: #280010;
+        display: inline;
+    }
+    img{
+        height: 50px;
+        float: right;
     }
     h2{
         margin: 80px 0;
@@ -55,7 +60,7 @@
         pointer-events: none;
     }
     .sign-in-button{
-        color: #AEc4d2;
+        color: #280010;
         font-size: 30px;
         margin-left: 5%;
         margin-top: 30px;
@@ -84,7 +89,7 @@
 }
 .fun-container{
     min-height: 100vh;
-    padding: 30px;
+    padding: 0 30px;
 }
 .fun-home-container{
     margin: 30px 0 0 0;
@@ -158,12 +163,16 @@
     }
 }
 .fun-log-container{
+    height: 100vh;
+    .ant-tabs-bar{
+        margin: 0 0 16px 0;
+    }
     .editor-tabs{
         position: relative;
         overflow: hidden;
-        min-height: 800px;
-        width: 1100px;
+        min-height: 100vh;
         margin: auto;
+        width: 1100px;
         .tab{
             width: 100%;
             position: absolute;
@@ -174,7 +183,7 @@
         }
         .pre-component{
             width: 50%;
-            margin: 60px auto 0;
+            margin: auto;
             border: 1px solid #e8e8e8;
             padding: 20px;
             h3{
@@ -184,18 +193,118 @@
                 width: 100%;
                 text-align: center;
                 .ant-upload-select-picture-card{
-                    min-width: 104px;
-                    width: auto;
+                    width: 100%;
                 }
                 img{
                     max-width: 100%;
-                    max-height: 440px;
+                    max-height: 220px;
                 }
             }
         }
     }
+    .log-upload{
+        transition: all 1s;
+        text-align: center;
+        margin: 30px 0;
+        .text{
+            font-size: 22px;
+            font-weight: 700;
+            margin: 30px 0;
+            i{
+                margin-right: 20px;
+            }
+        }
+    }
+    .log-loading{
+        img{
+            filter: grayscale(100%);
+            animation: spin 2s linear infinite;
+        }
+    }
+    .log-success{
+        img{
+            filter: grayscale(0)
+        }
+    }
+    .log-fail{
+        img{
+            filter: grayscale(100%);
+        }
+    }
 }
+.fun-photo-container{
+    .ant-card-grid{
+        position: relative;
+        width: 25%;
+        .img{
+            width: 100%;
+            height: 200px;
+            background-size: auto 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        .delete{
+            display: none;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 90px;
+            color: white;
+            font-size: 2.5rem;
+        }
+        &:hover{
+            .delete{
+                display: block;
+            }
+        }
+    }
+}
+.fun-travel-container{
+    .map-global{
+        // background: linear-gradient(45deg, #4bbfef 0%, #025bfa 100%);
+        background: white;
+        border: 1px solid gainsboro;
+        padding: 10px;
+        display: inline-block;
+        position: relative;
+        embed{
+            filter: drop-shadow( -5px -5px 5px rgb(87, 86, 86) );
+            height: 100%;
+        }
+    }
+    .map-input{
+        display: inline-block;
+        float: right;
+        .ant-input-group-wrapper{
+            margin: 10px 5px;
+        }
+    }
+    #map-dibiao{
+        position: absolute;
+        width: 32px;
+        height: 32px;
+    }
+}
+@keyframes spin {
+    0% {
+        filter: grayscale(0)
+    }
+    50% {
+        filter: grayscale(100%)
+    }
+    100%{
+        filter: grayscale(0)
+    }
+}
+
 @media screen and (max-width: 1050px){
+    .ant-tabs-bar{
+        margin: 0;
+    }
     .fun-home-container{
         .left{
             width: 100%;
@@ -207,7 +316,21 @@
             }
         }
     }
-
+    .fun-container{
+        .editor-tabs{
+            width: 100%;
+            .pre-component{
+                margin: 0;
+                width: 100%;
+            }
+        }
+       
+    }
+    .fun-photo-container{
+        .ant-card-grid{
+            width: 33.33%;
+        }
+    }
 }
 @media screen and (max-width: 700px){
     .fun-container{
@@ -234,6 +357,11 @@
                     }
                 }
             }
+        }
+    }
+    .fun-photo-container{
+        .ant-card-grid{
+            width: 50%;
         }
     }
 }

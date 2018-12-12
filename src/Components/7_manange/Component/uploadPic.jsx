@@ -1,5 +1,6 @@
 import React from "react";
 import { Upload, Icon, message } from 'antd';
+import {server} from "../../service"
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -32,8 +33,9 @@ export default class uploadpic extends React.Component {
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl => {
+          console.log(info.file.response.fileName);
           this.setState({ imageUrl, loading: false });
-          this.props.respone(info.file.name);
+          this.props.respone(info.file.response.fileName);
       });
     }
   }
@@ -52,7 +54,7 @@ export default class uploadpic extends React.Component {
         listType="picture-card"
         className="pic-uploader"
         showUploadList={false}
-        action="http://39.108.133.245:8900/upload"
+        action= {server + "/upload"}
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
       >

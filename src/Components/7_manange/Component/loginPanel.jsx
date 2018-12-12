@@ -23,7 +23,7 @@ export default class LoginPanel extends React.Component{
          switch(retCode){
            case ACTIONCODE.VERFIY_NO_USER: message.warning("no user");break;
            case ACTIONCODE.VERFIY_WRONG_PASSWORD: message.warning("wrong password");break;
-           case ACTIONCODE.VERFIY_SUCCESS: message.success("sucess");this.props.login();break;
+           case ACTIONCODE.VERFIY_SUCCESS: message.success("sucess");this.props.login(username);break;
            default:break;
          }
       };
@@ -39,6 +39,7 @@ export default class LoginPanel extends React.Component{
         <h1>
           Denghuo
         </h1>
+        <img src={require("../../../images/home/led-long-2.png")} alt="logo"/>
         <h2>
           Welcome Back!
           <em>SignIn To Be Master~ </em>

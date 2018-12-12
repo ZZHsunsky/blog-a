@@ -10,7 +10,7 @@ const TabPane = Tabs.TabPane;
 export default class Function extends React.Component {
 
     callback(key){
-        console.log(key);
+        // console.log(key);
     }
     getFunction(){
         return [

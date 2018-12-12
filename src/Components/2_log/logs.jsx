@@ -1,11 +1,13 @@
 import React from 'react';
 import QueueAnim from 'rc-queue-anim';
-import axios from 'axios';
 import './log.less';
 import SingleLog from "./singleLog";
 import OpenLog from "./openLog";
 import {AjaxGetRequest} from "../service";
 import {URLMAPCODE} from "../urlMap";
+import Loading from "../loading/Loading";
+import navHandle from "../navagition/navHandle";
+
 export default class LogContent extends React.Component{
 
     state = {
@@ -24,15 +26,8 @@ export default class LogContent extends React.Component{
     }
 
     getLogList(logs, open){
-        const selectLogIdx = this.state.selectLogIdx;
         const className = open === true ? 'log-list log-list-close':'log-list';
         const logsList = logs.map( (log, _) =>{
-            let style = {};
-            if(open){
-                if(_ === selectLogIdx) style= {opacity: 0, transform: "translateY(100vh)"};
-                if(_  >  selectLogIdx) style.transform = "translateY(200vh)";
-            }
-            log.style = style;
             log.idx = _;
             return <SingleLog 
                         key={_}
@@ -41,7 +36,7 @@ export default class LogContent extends React.Component{
                     />
         })
         return <div className={className}>
-            <QueueAnim delay={5000} className="queue-simple">
+            <QueueAnim delay={0} className="queue-simple">
                {logsList}
             </QueueAnim>
         </div>
@@ -61,24 +56,29 @@ export default class LogContent extends React.Component{
         const logs = this.state.logs || [];
         const logDetail = _ < logs.length ? logs[_] : {};
         this.setState({ open:true, logDetail, elem, selectLogIdx: _});
+        
+        AjaxGetRequest(URLMAPCODE.LOG_ACCESS, {id: logDetail.id, type: "read"});
+        navHandle.setClassName("none");
     }
 
     closeLog(){
-        this.state.elem && this.state.elem.close(); 
+        this.state.elem && this.state.elem.close();
+        navHandle.setClassName(""); 
         this.setState({open: false,});
         const self = this;
         setTimeout( () => {
             self.setState({logDetail:{}})
-        }, 1500)
+        }, 1000)
     }
 
     render(){
         const {logs, open, logDetail} = this.state;
         const logList = this.getLogList(logs || [], open);
         const openLog = this.getOpenLog(logDetail, open);
+
         return ( logs || [] ).length > 0 ? <div className="log-container">
             {openLog}
             {logList}
-        </div> : <div> loading </div>
+        </div> : <Loading/>
     }
 }

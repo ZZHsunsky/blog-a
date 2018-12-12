@@ -1,92 +1,121 @@
-#photo-container{
+.photos{
     position: relative;
-    width: 100%;
-    overflow: hidden;
-    .alum{
-        display: inline-block;
-        vertical-align: top;
-        transition: 1s;
-        width:100%;
-        &.alum-open{
-            transform: translateX(-100%);
-        }
-    }
-    .alum-expand{
-        display: inline-block;
-        vertical-align: top;
-        position: absolute;
-        width:100%;
-        left:100%;
-        transition: 1s;
-        &.alum-open{
-            transform: translateX(-100%);
-        }
-        .alum-expand-head{
-            position: absolute;
-            right:20px;
-        }
-        .alum-expand-body{
-            width:80%;
-            margin:auto;
-            .alum-single-photo{
-                display: inline-block;
-                position: relative;
-                margin:10px 10px;
-                height: 300px;
-                &:after{
-                    position: absolute;
-                    content:'';
-                    top:0;
-                    left:0;
-                    width:100%;
-                    height: 100%;
-                    background-color:rgba(143,143,143,0.5);
-                    visibility: hidden;
-                }
-                span{
-                    position: absolute;
-                    top:45%;
-                    left:45%;
-                    color:white;
-                    font-weight: 700;
-                    visibility: hidden;
-                }
-                img{
-                    height: 100%;
-                    max-width: 100%;
-                    vertical-align: middle;
-                    border-radius: 5px;
-                }
-                &:hover{
-                    cursor: pointer;
-                    span{
-                        visibility: visible;
-                    }
-                    &:after{
-                        visibility: visible;
-                    }
-                }
-            }
-        }
-    }
     .single-alum{
         display: inline-block;
-        width:20%;
-        margin:15px 2%;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
-    .ant-card{
-        .ant-card-body{
-            .ant-card-meta{
+        width: 30%;
+        margin: 30px 1.666%;
+        transition: all 1s;
+        border: 1px solid rgb(179, 177, 177);
+        .img{
+            height: 200px;
+            background-size: 100% auto;
+            background-position: center center;
+        }
+        .ant-card-meta{
+            text-align: center;
+            padding: 15px;
+            background: white;
+        }
+        .zhezhao{
+            position: fixed;
+            background: rgba(0 , 0, 0, 0.3);
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        .alum-show{
+            transition: all 1s;
+            height: 280px;
+            width: 100%;
+            overflow: hidden;
+            // filter: grayscale(100%);
+            // &:hover{
+            //     filter: grayscale(0);
+            // }
+        }
+        .alum-photos{
+            transition: all 1s;
+            position: fixed;
+            height: 90vh;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            top: 0;
+            transform: translateY(120vh);
+            left: 0;
+            width: 100vw;
+            background: white;
+            border-top: 1px solid gainsboro;
+            border-top-right-radius: 15px;
+            border-top-left-radius: 15px;
+            padding: 20px 30px;
+            h2{
+                font-weight: 700;
+                border-bottom: 1px solid gainsboro;
                 text-align: center;
-                .ant-card-meta-title{
-                    font-weight: 700;
+                span{
+                    margin-left: 15px;
                 }
-                .ant-card-meta-description{
-                    text-align: center;
+                i{
+                    float: right;
                 }
             }
+            &::-webkit-scrollbar{
+                display: none;
+            }
+            
         }
+        .photo-col{
+            width: 23%;
+            margin: 0px 1%;
+            float: left;
+            img{
+                margin: 10px 0;
+                width: 100%;
+                animation: scale 1s;
+            }
+        }
+        &.open{
+            .zhezhao{
+                display: block;
+            }
+            .alum-photos{
+               transform: translateY(10vh);
+            }
+        }
+    }
+}
+@media screen and (max-width: 1000px){
+    .photos{
+        .single-alum{
+            .photo-col{
+                width: 31%;
+                margin: 0 1.166%;
+            }
+        }
+    }
+}
+@media screen and (max-width: 600px){
+    .photos{
+        .single-alum{
+            width: 48%;
+            margin: 15px 1%;
+            .alum-photos{
+                padding: 20px 5px;
+            }
+            .photo-col{
+                width: 48%;
+                margin: 0 1%;
+            }
+        }
+    }
+}
+
+@keyframes scale {
+    from{
+        transform: scale(0)
+    }to{
+        transform: scale(1)
     }
 }

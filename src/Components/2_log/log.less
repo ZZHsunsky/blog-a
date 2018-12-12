@@ -1,7 +1,7 @@
 @bgDeep: #011935;
 @bgDeep2: #00343F;
-@bgLight: #1dB0B8;
-@bgLight2: #37c6c0;
+@bgLight: #270010;
+@bgLight2: #0e0006;
 @textBg:#D0E9FF;
 
 .log-container{
@@ -19,31 +19,31 @@
         width: 100vw;
         top: 0;
         z-index: 102;
-        transition: 1.5s;
+        transition: 1s;
         embed{
             background: white;
         }
         &.log-list-close{
             pointer-events: none;
-            transform: translateY(-100vh);
-            //top: -100vh;
+            transform: translateY(-120vh);
         }
     }
 }
 
 .tmlog{    
-    transition:all 1.5s;
     border: 1px solid #e8e8e8;
     border-bottom: none;
     background: white;
     padding: 0 10%;
     position: relative;
-    &:hover{
-        cursor: pointer;
-        h2{
-            font-size:28px;
-            color:@bgLight;
-        }
+    h2{
+        display: inline-block;
+        background: linear-gradient(to bottom, var(--mainColor) 0%, var(--mainColor) 100%);
+        background-position: 0 100%;
+        background-repeat: repeat-x;
+        background-size: 3px 3px;
+        color: #000;
+        text-decoration: none;
     }
     &:last-child{
         border-bottom: 1px solid #e8e8e8;
@@ -87,20 +87,30 @@
             font-size: 18px;
             text-indent: 2rem;
         }
+        &:hover{
+            cursor: pointer;
+            h2{
+                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .5s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23e20328' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
+                background-position: 0 100%;
+                background-size: auto 7px;
+                background-repeat: repeat-x;
+                text-decoration: none;
+            }
+        }
     }
 }
 
 .open-log{
     width: 1000px;
+    min-width: 320px;
     margin: auto;
+    
     .log-bg{    
         background: center top;
         background-size: cover; 
         height: 400px;
-        // width: 1100px;
         position: relative;
-        margin-left: -50px;
-        margin-right: -50px;
+        margin: 0 -5% ;
         top: 0;
         margin-bottom: 80px;
         .head{
@@ -108,13 +118,13 @@
             position: absolute;
             top: 0;
             width: 100%;
-            padding: 30px 55px 30px 55px;
+            padding: 30px 5%;
             text-align: center;
             span{
                 display: inline-block;
                 vertical-align: top;
                 text-align: center;
-                font-size: 30px;
+                font-size: 1.5rem;
                 line-height: 40px;
                 border-radius: 20px;
                 &:first-child{
@@ -134,6 +144,7 @@
             }
             embed{
                 height: 40px;
+                width: auto;
             }
         }
         .zhezhao{
@@ -144,7 +155,7 @@
         .bottom{
             position: absolute;
             bottom: 110px;
-            margin: 0 55px;
+            margin: 0 5%;
             color: white;
             font-size: 20px;
             i{
@@ -164,27 +175,40 @@
         margin: 30px 0;
        font-size: 36px;
        font-weight: 700;
+       line-height: 36px;
        text-align: center;
     }
     img{
         max-width: 100%;
+        margin: 30px 0;
     }
+
     .log-label{
-        margin-top: 110px;
-        padding: 20px 30px 40px 30px;
-        //box-shadow:  0 2px 20px rgba(0, 0, 0, 0.2);
         position: relative;
-        top: -200px;
+        transition: all .8s ease;
+        top: -170px;
+        padding: 20px 30px 40px 30px;
         background: white;
         border-radius: 15px;
         z-index: 100;
-        h2{
-            text-align: center;
-            font-weight: 700;
-        }
+        font-size: 16px;
+        line-height: 20px;
+        color: rgba(0, 0, 0, 0.65);
         pre{
-            color: white;
-            background-color: #3E3E3E;
+            max-width: 100%;
+            max-height: 100%;
+            margin: 10px 0;
+            padding: 15px;
+            overflow: auto;
+            background-color: #f1f2f3;
+            border-radius: 3px;
+            color: #666;
+            font-family: monospace;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
         }
         .desc{
             padding: 20px;
@@ -196,8 +220,7 @@
                 height: 64px;
                 display: inline-block;
                 border-radius: 15px;
-                margin-right: 30px;
-                box-shadow:  0 2px 20px rgba(0, 0, 0, 0.2);
+                margin: -10px 30px 0 0;
             }
             span{
                 background: rgba(238, 132, 62, 0.5);
@@ -212,44 +235,16 @@
             }
         }
     }
+
+    &.goahead{s
+        .log-label{
+            transform: translateY(-200px);
+        }
+    }
 }
 @media screen and (max-width:1100px) {
     .open-log{
         width: 90%;
-        .log-bg{
-            width: 100vw;
-            .head{
-                span{
-                    font-size: 20px;
-                    line-height: 30px;
-                    i{
-                        padding: 5px 10px;
-                        border-radius: 10px;
-                    }
-                }
-                embed{
-                    width: auto;
-                    height: 30px;
-                }
-            }
-        }
-        .log-label{
-            .desc{
-                padding: 20px 0;
-                img{
-                    margin-right: 5px;
-                }
-                ul{
-                    padding: 0;
-                    li{
-                        display: none;
-                        &:last-child{
-                            display: inline;
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 @media screen and (max-width:1000px) {
@@ -274,13 +269,6 @@
 }
 @media screen and (max-width:800px){
     .open-log{
-        .log-bg{
-            height: 300px;
-            width: 121%;
-            .head{
-                padding: 30px 11% 30px 55px;
-            }
-        }
         .log-label{
             padding: 20px 10px
         }

@@ -3,14 +3,14 @@ import {Input, Button, Icon, AutoComplete, message, Upload} from "antd";
 import BraftEditor from 'braft-editor'
 import { ContentUtils } from 'braft-utils'
 import { transformFileToDataUrl } from "../../uploadImg";
+import {GetCookie, AjaxPostRequest, AjaxGetRequest, server} from "../../service";
+import {URLMAPCODE} from "../../urlMap";
 import UploadPic from "./uploadPic";
-import axios from "axios"
-import qs from "qs"
 import 'braft-editor/dist/index.css'
-
+import qs from "qs"
 export default class FunLog extends React.Component {
     state = {
-        status : 1, // 0 表示写作 1 表示 设置标题 背景 2表示上传成功
+        status : 0, // 0 表示写作 1 表示 设置标题 背景 2表示上传成功
         logID : 0,
         logGroup: [],
         editorState: BraftEditor.createEditorState('<p>Hello!</p>'), // 设置编辑器初始内容
@@ -18,16 +18,29 @@ export default class FunLog extends React.Component {
     }
 
     finishComponent = {
-        0: <div>LOADING</div>,
-        1: <div>SUCCESSFUL<Button type="primary" shape="circle" icon="right" onClick={this.handleEditor(1)}/></div>,
-        2: <div>服务器错误<Button type="primary" shape="circle" icon="right" onClick={this.handleEditor(1)}/></div>
+        0: {
+            classname: "log-loading",
+            icon: "loading",
+            text: "上传中...",
+            button: <div/>
+        },
+        1: {
+            classname: "log-success",
+            icon: "smile",
+            text: "上传成功！", 
+            button: <Button type="primary" key="onemore"  style={{width: "45%"}} onClick={this.handleEditor(0)}>再来一篇</Button>
+        },
+        2: {
+            classname: "log-fail",
+            icon: "frown",
+            text: "出错啦！",
+            button : <Button type="primary" key="reback"  style={{width: "45%"}} onClick={this.handleEditor(0)}>返回日志</Button>
+        }
     }
-
+    
     componentWillMount(){
-        const self = this;
-        axios.get("http://39.108.133.245:8900/getLogGroup").then( res =>{
-            self.setState({logGroup: res.data || []});
-        })
+        const success = res => this.setState({logGroup: res.data || []});
+        AjaxGetRequest(URLMAPCODE.GET_LOG_GROUP, {}, success)
     }
 
     getPrepareComponent(){
@@ -45,6 +58,9 @@ export default class FunLog extends React.Component {
                 />
                 <h3>日志封面</h3>
                 <UploadPic respone={this.handleUploadPic.bind(this)}/>
+                <h3>日志操作</h3>
+                <Button type="primary" key="left"  style={{width: "45%"}} onClick={this.handleEditor(0)}>返回修改</Button>
+                <Button type="primary" key="right" style={{width: "45%", marginLeft: "10%"}} onClick={this.handleEditor(2)}>提交上传</Button>
             <div className="preview">
             </div>
         </div>
@@ -53,19 +69,35 @@ export default class FunLog extends React.Component {
 
     getFinishComponent(){
         const load = this.state.load || 0;
-        return this.finishComponent[load];
+        const component = this.finishComponent[load];
+        const classname = "log-upload " + component.classname;
+
+        return <div className={classname}>
+            <img src={require("../../../images/home/led-long-2.png")} alt="loading"></img>
+            <div className="text">
+                <Icon type={component.icon} />
+                {component.text}
+            </div>
+            {component.button}
+            {/* <Button type="primary" key="load"  style={{width: "90%", marginLeft: "5%"}} onClick={this.changeLoad}>返回修改</Button> */}
+        </div>;
     }
 
+    changeLoad = () => {
+        const load = ((this.state.load || 0) + 1 ) % 3;
+        this.setState({load});
+    }
     // 即将上传日志
     handleEditor(status){
-        if(status == 2){
+        if(status === 2){
             return () => {
                 const {title, group, imgName} = this.state;
                 const content = this.state.editorState.toHTML();
-                const master = "dwj";
+                const master = GetCookie("username") || "zzh";
+                const date = new Date();
                 const model = {
-                    day: new Date().toLocaleDateString(),
-                    time: new Date().toLocaleTimeString(),
+                    day: date.toLocaleDateString(),
+                    time: date.getHours() + ":" + date.getMinutes(),
                     like: 0,
                     read: 0,
                     comment: 0,
@@ -78,18 +110,13 @@ export default class FunLog extends React.Component {
                     message.warning('未选择日志封面！');
                 }else{
                     this.setState({load:0});
-                    axios.post("http://39.108.133.245:8900/appendLog",qs.stringify({
+                    const success = res => this.setState({load: 1});
+                    const fail = err => {this.setState({load: 2})};
+                    AjaxPostRequest(URLMAPCODE.APPEND_LOG,qs.stringify({
                         title, group, imgName, content, master, ...model
-                    })
-                    ).then( res =>{
-                            this.setState({load:1});
-                        }
-                    ).catch( err =>{
-                        console.log(err);
-                        this.setState({load:2});
-                    })
+                    }), success, fail);
+                    this.setState({status})
                 };
-                this.setState({status})
             }
         }
         return () => {
@@ -113,11 +140,11 @@ export default class FunLog extends React.Component {
         this.setState({group})
     }
 
-    handleUpload = (dataUrl) => {
+    handleUpload = (filename) => {
         this.setState({
             editorState: ContentUtils.insertMedias(this.state.editorState, [{
               type: 'IMAGE',
-              url: dataUrl
+              url: server + "/pic/" + filename,
             }])
         })
     }
@@ -133,9 +160,15 @@ export default class FunLog extends React.Component {
   render () {
 
     const controls = [
-      'bold','text-color', 'underline', 'list-ul', 'code', 'separator', 'link', 'separator', 'emoji',
+      'headings', 'text-color', 'text-align', 'list-ul', 'separator', 'link', 'emoji', 'code', 'undo', 'redo', 'remove-styles'
     ]
     const extendControls = [
+        {
+            key: 'custom-button',
+            type: 'button',
+            text: '下一步',
+            onClick: this.handleEditor(1)
+        },
         {
           key: 'antd-uploader',
           type: 'component',
@@ -150,7 +183,7 @@ export default class FunLog extends React.Component {
               </button>
             </Upload>
           )
-        }
+        },
       ]
     const { editorState } = this.state
     const status = this.state.status;
@@ -166,12 +199,9 @@ export default class FunLog extends React.Component {
                     onChange={this.handleInput}
                     extendControls={extendControls}
                 />
-                <Button type="primary" shape="circle" icon="right" style={{right:"15px",position:"absolute"}} onClick={this.handleEditor(1)}/>
             </div>
             <div className="tab" key="2" style={{left: ((1 - status) * 100 ) + "%"}}>
                 {preComponent}
-                <Button type="primary" key="left" shape="circle" icon="left" style={{left:"15%",top:"200px",position:"absolute"}} onClick={this.handleEditor(0)}/>,
-                <Button type="primary" key="right" shape="circle" icon="right" style={{right:"15%",top:"200px",position:"absolute"}} onClick={this.handleEditor(2)}/>,
             </div>
             <div className="tab" key="3" style={{left: ((2 - status) * 100 ) + "%"}}>
                 {this.getFinishComponent()}

@@ -1,3 +1,5 @@
+import {server} from "./service"
+
 export function transformFileToDataUrl(file, callback){
     const imgFile = {
         type: file.type || "image/jpeg",
@@ -51,13 +53,13 @@ function processData(dataUrl, imgFile, callback){
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 const result = JSON.parse(xhr.responseText);
-                call && result.imgUrl && call(result.imgUrl);
+                call && result.fileName && call(result.fileName);
                 console.info("上传成功");
             } else {
                 console.log("上传失败");
             }
         }
     };
-    xhr.open('POST', 'http://39.108.133.245:8900/upload' , true);
+    xhr.open('POST', server + '/upload' , true);
     xhr.send(formData);
 }
