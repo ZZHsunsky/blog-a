@@ -11,7 +11,9 @@ export default class Loading extends  React.Component{
     }
 
     componentWillUnmount(){
-        navHandle.setClassName("");
+        if(this.props.noMenuButton){
+            navHandle.setClassName("");
+        }
     }
 
     getLoading = () => {

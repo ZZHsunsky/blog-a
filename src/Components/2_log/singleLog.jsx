@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar} from 'antd';
+import { Icon } from "antd";
 
 export default class SingleLog extends  React.Component{
 
@@ -34,7 +35,11 @@ export default class SingleLog extends  React.Component{
             <Avatar shape="square" size={80} src={require(`../../images/user/${master}.png`)} />
         </div>
         <div className="log-label">
-            <time className="log-time"><span>{data.day}</span><span>{data.time}</span><span><Avatar shape="square" size={"large"} src={require(`../../images/user/${master}.png`)} /></span></time>
+            <time className="log-time">
+              <span>{data.day}</span>
+              <span>{data.time}</span>
+              <span><Icon type="heart"/>{data.like}</span>
+              <span><Avatar shape="square" size={"large"} src={require(`../../images/user/${master}.png`)} /></span></time>
             <div/><h2>{data.title}</h2>
             <p>{content}</p>
         </div>

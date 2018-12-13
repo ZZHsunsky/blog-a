@@ -23,6 +23,9 @@
         embed{
             background: white;
         }
+        &::-webkit-scrollbar{
+            display: none;
+        }
         &.log-list-close{
             pointer-events: none;
             transform: translateY(-120vh);
@@ -74,6 +77,12 @@
                     color:@bgLight;
                 }
                 &:nth-child(3){
+                    i{
+                        margin-right: 5px;
+                    }
+                    color: #ee0b69;
+                }
+                &:last-child{
                     float:right;
                     visibility: hidden;
                 }
@@ -104,7 +113,6 @@
     width: 1000px;
     min-width: 320px;
     margin: auto;
-    
     .log-bg{    
         background: center top;
         background-size: cover; 
@@ -135,6 +143,9 @@
                 }
                 &:hover{
                     cursor: pointer;
+                    i{
+                        background-image: linear-gradient(25deg, #24226d, #325b97, #3196c2, #00d5ef)
+                    }
                 }
                 i{
                     background: rgba(172, 170, 170, 0.5);
@@ -167,6 +178,9 @@
                 border-radius: 50%;
                 &:hover{
                     cursor: pointer;
+                }
+                &.active{
+                    color: #ee0b69;
                 }
             }
         }
@@ -236,15 +250,130 @@
         }
     }
 
-    &.goahead{s
-        .log-label{
-            transform: translateY(-200px);
+    .log-comment{
+        transition: transform 1s;
+        position: fixed;
+        width: 100vw;
+        background: #ffffff;
+        height: 50vh;
+        top: 50vh;
+        left: 0;
+        z-index: 102;
+        border-top: 1px solid gainsboro;
+        border-top-right-radius: 15px;
+        border-top-left-radius: 15px;
+        h2{
+            padding: 10px 15px;
+            text-align: center;
+            .ant-input{
+                display: inline-block;
+                width: calc(~"100% - 80px");
+            }
+            i{
+                display: inline-block;
+                vertical-align: top;
+                float: right;
+                font-size: 32px;
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+        .guest{
+            height: 30vh;
+            text-align: center;
+            img{
+                width: 64px;
+                margin: 0;
+            }
+            h3{
+                padding: 10px;
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+        }
+        .guest-no{
+            min-height: 30vh;
+            text-align: center;
+            .ant-input{
+                width: 90%;
+                max-width: 600px;
+            }
+            .ant-avatar{
+                margin: 10px 5px;
+                border-radius: 0;
+                &:hover{
+                    border: 3px solid cornflowerblue;
+                }
+            }
+            .avatars{
+                margin: 10px 0;
+            }
+            img{
+                margin: 0;
+            }
+        }
+        .comment-wrap{
+            margin: 0 18px;
+            border: 1px solid gainsboro;
+            padding: 5px 10px;
+            img{
+                margin: 0 10px 0 0;
+                width: 32px;
+            }
+            span{
+                vertical-align: top;
+                display: block;
+                time{
+                    margin-left: 10px;
+                }
+                &:first-child{
+                    font-weight: 700;
+                    padding-right: 15px;
+                    line-height: 16px;
+                }
+            }
+        }
+        .ant-tabs {
+            .ant-tabs-left-content{
+                padding-left: 0;
+            }
+            .ant-tabs-tabpane{
+                min-height: 30vh; 
+                max-height: calc(~"50vh - 84px");
+                overflow-y: scroll;
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+            }
+        }
+    }
+    .comment-zhezhao{
+        position: fixed;
+        z-index: 101;
+        background: rgba(0 , 0, 0, 0.3);
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+
+    &.show-comm{
+        position: fixed;
+        left: calc(~"(100% - 1000px) / 2");
+        .comment-zhezhao{
+            display: block;
         }
     }
 }
+
 @media screen and (max-width:1100px) {
     .open-log{
         width: 90%;
+        &.show-comm{
+            left: 5%;
+        }
     }
 }
 @media screen and (max-width:1000px) {
@@ -259,7 +388,7 @@
             width:100%;
             .log-time{
                 span{
-                    &:nth-child(3){
+                    &:last-child{
                         visibility: visible;
                     }
                 }
@@ -270,7 +399,36 @@
 @media screen and (max-width:800px){
     .open-log{
         .log-label{
-            padding: 20px 10px
+            padding: 20px 10px;
+            .desc{
+                padding: 10px 5px;
+                img{
+                    margin-right: 0;
+                }
+            }
         }
+        .log-comment{
+            .ant-tabs{
+                .ant-tabs-tab{
+                    padding: 8px 8px 8px 12px;
+                }
+            }
+            .ant-tabs-tab{
+                width: 44px;
+                overflow: hidden;
+                font-size: 0;
+                i{
+                    font-size: 16px;
+                }
+            }
+            .comment-wrap{
+                span{
+                    &:first-child{
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+       
     }
 }

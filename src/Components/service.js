@@ -15,6 +15,7 @@ export function AjaxGetRequest(map,queryObj,succFunc,errFunc){
             url += `${key}=${queryObj[key]}&`
         }
     }
+    // console.log(url);
     axios.get(url).then(succFunc).catch(errFunc);
 }
 
@@ -47,4 +48,13 @@ function getCookieVal(offset){
     var endstr = document.cookie.indexOf(";", offset);
     if (endstr === -1) endstr = document.cookie.length;
     return unescape(document.cookie.substring(offset, endstr));
+}
+
+export function DeleteCookie(key){
+    var exp = new Date(); 
+    exp.setTime(exp.getTime() - 1); 
+    var cval=GetCookie(key); 
+    console.log(cval);
+    if(cval!=null) 
+        document.cookie= key + "=" + cval + ";expires=" + exp.toGMTString(); 
 }
