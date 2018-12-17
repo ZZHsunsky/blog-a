@@ -3,7 +3,6 @@ import {Card, Icon} from 'antd';
 import {server} from "../service";
 import Loading from "../loading/Loading";
 import './photo.less'
-import navHandle from "../navagition/navHandle";
 
 const { Meta } = Card;
 
@@ -80,6 +79,7 @@ export default class Alum extends React.Component{
 
         this.renderImages.map( img => {
             if(img.width) count ++;
+            console.log(img.width, img.height);
             return null;
         })
 

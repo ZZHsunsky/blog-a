@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs } from 'antd';
 import FunHome from "./funHome";
 import FunLog from "./funLog";
-import FunMemory from "./funMemory";
+// import FunMemory from "./funMemory";
 import FunPhoto from "./funPhoto";
 import FunTravel from "./funTravel";
 
@@ -29,11 +29,11 @@ export default class Function extends React.Component {
                 icon: "photo.png",
                 link: <FunPhoto/>
             },
-            {
-                name: "添加回忆",
-                icon: "memory.png",
-                link: <FunMemory/>
-            },
+            // {
+            //     name: "添加回忆",
+            //     icon: "memory.png",
+            //     link: <FunMemory/>
+            // },
             {
                 name:"添加足迹",
                 icon:"travel.png",

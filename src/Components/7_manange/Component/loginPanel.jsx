@@ -20,11 +20,13 @@ export default class LoginPanel extends React.Component{
       const password = document.getElementById("login-password").value;
       const succ = (res) => {
          var retCode = res.data.retCode;
-         switch(retCode){
-           case ACTIONCODE.VERFIY_NO_USER: message.warning("no user");break;
-           case ACTIONCODE.VERFIY_WRONG_PASSWORD: message.warning("wrong password");break;
-           case ACTIONCODE.VERFIY_SUCCESS: message.success("sucess");this.props.login(username);break;
-           default:break;
+         if(retCode === ACTIONCODE.VERFIY_NO_USER){
+          message.warning("no user");
+         }else if(retCode === ACTIONCODE.VERFIY_WRONG_PASSWORD){
+          message.warning("wrong password");
+         }else if(retCode.length === 32){
+          message.success("sucess");
+          this.props.login(username, retCode);
          }
       };
       const fail = (res) => {console.log(res)}

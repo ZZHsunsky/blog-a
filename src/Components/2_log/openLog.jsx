@@ -1,11 +1,11 @@
 import React from "react";
-import { Icon, Input, Tabs, Avatar, Button, message, Modal} from 'antd';
+import { Icon, Input, Tabs, Avatar, Button, message, BackTop} from 'antd';
 import {server,AjaxGetRequest, GetCookie, SetCookie, DeleteCookie, AjaxPostRequest} from "../service"
 import {URLMAPCODE} from "../urlMap";
 import navHandle from "../navagition/navHandle";
 import Loading from "../loading/Loading";
 const {TabPane } = Tabs;
-const confirm = Modal.confirm;
+
 
 export default class LogDetail extends React.Component{
 
@@ -49,10 +49,12 @@ export default class LogDetail extends React.Component{
       const id = data.id;
 
       if(id){
-        if(id != this.state.data.id){
+        if(id !== this.state.data.id){
           this.setState({data, comments: null, hasLike: false, likeUsers: []});
           this.getLikeUser(id);
         }
+      }else{
+        this.setState({data, comments: null, hasLike: false, likeUsers: []});
       }
     }
 
@@ -96,7 +98,9 @@ export default class LogDetail extends React.Component{
         message.warning("请登陆后发表评论");
         return;
       }else{
-        const comment = document.getElementById("input-comment").value;
+        const input =  document.getElementById("input-comment")
+        const comment =input.value;
+        input.value = "";
         if(comment.length <= 10){
           message.warning("评论不得少于十个字符~");
           return;
@@ -119,7 +123,7 @@ export default class LogDetail extends React.Component{
     getComments = (id) => {
       const self = this;
       const success = (res) => {
-        if(res.data != "Fail"){
+        if(res.data !== "Fail"){
           self.setState({comments: res.data});
         }
       }
@@ -130,7 +134,7 @@ export default class LogDetail extends React.Component{
     getLikeUser = (id) => {
       const success = (res) => {
         const likeUsers = res.data || [];
-        if(likeUsers != "Fail"){
+        if(likeUsers !== "Fail"){
           this.setState({likeUsers})
           this.handleHasLike(likeUsers);
         }
@@ -144,7 +148,7 @@ export default class LogDetail extends React.Component{
         const Comp = comments.map((comment, _) => {
           const obj = JSON.parse(comment);
           return <p className="comment-wrap" key={_}>
-            <span><img src={require(`../../images/user/${obj.avatarName}.png`)}/>{obj.userName}<time>{obj.time}</time></span>
+            <span><img src={require(`../../images/user/${obj.avatarName}.png`)}  alt="avatar"/>{obj.userName}<time>{obj.time}</time></span>
             <span>{obj.comment}</span>
           </p>
         })
@@ -187,7 +191,7 @@ export default class LogDetail extends React.Component{
 
     handleHasLike = (likeUsers) => {
       const index = likeUsers.indexOf(this.state.userName);
-      if(index != -1){
+      if(index !== -1){
         this.setState({hasLike: true});
       }
     }
@@ -195,16 +199,21 @@ export default class LogDetail extends React.Component{
     handleGuestLogin = (avatar) => {
       return () => {
         const guestName = (document.getElementById("input-guest").value || "" ).replace(" ", "");
-        if(guestName.length == 0){
+        if(guestName.length === 0){
           message.warning("用户名称不能为空");
           return;
         }else{
-          const self = this;
           const success = (res) => {
             if(res.data){
               if(res.data.retCode === "Success"){
                 SetCookie("guestInfo", JSON.stringify({name: guestName, avatar}));
-                this.setState({comment: true, userName: guestName, avatarName: avatar});
+                const likeUsers = this.state.likeUsers || [];
+                if(likeUsers.indexOf(guestName) !== -1){
+                  this.setState({comment: true, userName: guestName, avatarName: avatar, hasLike: true})
+                }else{
+                  this.setState({comment: true, userName: guestName, avatarName: avatar});
+                }
+
               }else{
                 message.warning("用户名或头像验证失败~")
                 this.setState({comment: true});
@@ -220,7 +229,7 @@ export default class LogDetail extends React.Component{
     handleGuestLogOut = () => {
       DeleteCookie("username");
       DeleteCookie("guestInfo");
-      this.setState({userName: null, avatarName: null});
+      this.setState({userName: null, avatarName: null, hasLike: false});
     }
 
     render(){
@@ -280,6 +289,9 @@ export default class LogDetail extends React.Component{
                   <TabPane tab={<span><Icon type="user" />用户区</span>} key={2}>{this.getGuest(userName, avatarName)}</TabPane>
                 </Tabs>          
               </div>
+              <BackTop>
+                <div className="log-back-up">UP</div>
+              </BackTop>
             </div> : <div/>
     }
   }

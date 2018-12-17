@@ -9,8 +9,9 @@ const handle = {
 
     setClassName : (className) => {
         if(this.view){
-            // console.log(className);
-            this.view.setState({className})
+            if(this.view.state.className !== className){
+                this.view.setState({className})
+            }
         }
     }
 }

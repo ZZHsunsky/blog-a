@@ -12,8 +12,9 @@ export default class Manage extends React.Component{
         userInfo:{},
       }
 
-      handleChangeLogin = (username) =>{
+      handleChangeLogin = (username, token) =>{
           SetCookie("username", username);
+          SetCookie("usertoken", token);
           this.setState({hasLogin: true})
       }
 

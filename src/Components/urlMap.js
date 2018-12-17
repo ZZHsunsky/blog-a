@@ -1,6 +1,7 @@
 export const URLMAP = {
 
     VERIFY : "/verify",
+    VERIFY_TOKEN : "/verifyToken",
     GET_LOG : "/getLog",
     GET_LOGS : "/getLogs",
     APPEND_LOG : "/appendLog",
@@ -20,6 +21,7 @@ export const URLMAP = {
 
 export const URLMAPCODE = {
     VERIFY : "VERIFY",
+    VERIFY_TOKEN : "VERIFY_TOKEN",
     GET_LOG : "GET_LOG",
     GET_LOGS : "GET_LOGS",
     APPEND_LOG : "APPEND_LOG",

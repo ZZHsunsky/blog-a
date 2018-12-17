@@ -9,8 +9,10 @@ import Memory from './Components/4_memory/memory';
 import Travel from './Components/5_travel/travel';
 import ToDo from './Components/6_todo/todo';
 import Manage from './Components/7_manange/manange';
-import {BrowserRouter,Route} from 'react-router-dom';
+import {Route, HashRouter} from 'react-router-dom';
 import OpenLog from "./Components/2_log/openLog";
+import {AjaxGetRequest, GetCookie, DeleteCookie} from "./Components/service";
+import {URLMAPCODE} from "./Components/urlMap";
 
 const { Content, } = Layout;
 
@@ -25,12 +27,30 @@ export default class App extends React.Component {
     // var src = '//cdn.jsdelivr.net/npm/eruda';
     // document.write('<script src="' + src + '"></script>');
     // document.write('<script>eruda.init();</script>');
-    
+    const username = GetCookie("username");
+    const token = GetCookie("usertoken");
+    if(username && token){
+      console.log(URLMAPCODE.VERIFY_TOKEN);
+      const success = (res) => {
+        if(res.data){
+          const retCode = res.data.retCode;
+          if(retCode !== "Success"){
+            DeleteCookie("username");
+            DeleteCookie("usertoken");
+          }
+        }
+      }
+
+      AjaxGetRequest(URLMAPCODE.VERIFY_TOKEN, {username, token}, success)
+    }else{
+      DeleteCookie("username");
+      DeleteCookie("usertoken");
+    }
   }
 
 
   getComponent(){
-      return ( <BrowserRouter>
+      return ( <HashRouter>
         <Layout style={{background:'#fff'}}>
             <Nav/>
             <Content>
@@ -46,7 +66,7 @@ export default class App extends React.Component {
             </div>
             </Content>    
         </Layout>
-      </BrowserRouter>) 
+      </HashRouter>) 
   }
 
   render() {

@@ -7,8 +7,7 @@ export default class TodoContent extends React.Component{
 
     state = {
         ulStyle: {
-            left: '0',
-            top: '0',
+            transform: "translateX(0) translateY(0)",
         },
         checked:false,
     }
@@ -21,9 +20,9 @@ export default class TodoContent extends React.Component{
         return () =>{
             var ulStyle = {}
             if((document.body.clientWidth || window.clientWidth ) <= 600){
-                ulStyle.left = -(idx-1) * 150 + 'px';
+                ulStyle.transform = "translateX(" + (-(idx-1) * 150) + 'px)';
             }else{
-                ulStyle.top = -(idx-1) * 29 + 'rem';
+                ulStyle.transform = "translateY(" + (-(idx-1) * 29) + 'rem)';
             }
             this.setState({ulStyle});
         }
@@ -56,10 +55,10 @@ export default class TodoContent extends React.Component{
                         <li onMouseEnter={this.handleMouseHover(1)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/"><span>01</span>Home</NavLink></li>
                         <li onMouseEnter={this.handleMouseHover(2)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Log"><span>02</span>心情·日志</NavLink></li>
                         <li onMouseEnter={this.handleMouseHover(3)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Photo"><span>03</span>瞬间·回忆</NavLink></li>
-                        <li onMouseEnter={this.handleMouseHover(4)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Meomory"><span>04</span>往事·时间</NavLink></li>
-                        <li onMouseEnter={this.handleMouseHover(5)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Travel"><span>05</span>足迹·旅行</NavLink></li>
-                        <li onMouseEnter={this.handleMouseHover(6)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Todo"><span>06</span>未来-可期</NavLink></li>
-                        <li onMouseEnter={this.handleMouseHover(7)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Manage"><span>06</span>主人·你好</NavLink></li>
+                        {/* <li onMouseEnter={this.handleMouseHover(4)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Meomory"><span>04</span>往事·时间</NavLink></li> */}
+                        <li onMouseEnter={this.handleMouseHover(4)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Travel"><span>04</span>足迹·旅行</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(5)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Todo"><span>05</span>未来-可期</NavLink></li>
+                        <li onMouseEnter={this.handleMouseHover(6)} onClick={this.handleMenuSwitch.bind(this)}><NavLink to="/Manage"><span>06</span>主人·你好</NavLink></li>
                     </ul>
                 </div>
                 <div className="menu-label">
@@ -81,10 +80,30 @@ export default class TodoContent extends React.Component{
                             </div>
                         </li>
                         <li><div id="nav-photo-level"><span></span><span></span></div></li>
-                        <li><span>04</span>往事·时间</li>
-                        <li><span>05</span>足迹·旅行</li>
-                        <li><span>06</span>未来可期</li>
-                        <li><span>06</span>主人·你好</li>
+                        {/* <li><span>04</span>往事·时间</li> */}
+                        <li>
+                            <div id="nav-travel">
+                                <div className="train">
+                                    <div className="windows"></div>
+                                    <div className="lights"></div>
+                                </div>
+                                <div className="rails">
+                                    <div className="ties"></div>
+                                    <div className="ties"></div>
+                                    <div className="ties"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="nav-future">
+                                FUTURE
+                            </div>
+                        </li>
+                        <li>
+                            <div id="nav-master">
+                                HELLO MASTER
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 </div>

@@ -12,7 +12,11 @@ export default class Loading extends  React.Component{
 
     componentWillUnmount(){
         if(this.props.noMenuButton){
-            navHandle.setClassName("");
+            if(this.props.noMenuButton){
+                navHandle.setClassName("no-bg")
+            }else{
+                navHandle.setClassName("");
+            }         
         }
     }
 

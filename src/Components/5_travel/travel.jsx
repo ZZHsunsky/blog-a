@@ -44,29 +44,28 @@ export default class TravelContent extends React.Component{
     }
 
     getMapPoint = () => {
-         const { clientWidth} = document.body;
-         const mapSvg = document.getElementById("map-svg");
-         const svgUrl = require("../../images/map/deng.svg");
-         const x = 0.54, y = 0.2;
+        //  const { clientWidth} = document.body;
+        //  const mapSvg = document.getElementById("map-svg");
+        //  const svgUrl = require("../../images/map/deng.svg");
+        //  const x = 0.54, y = 0.2;
 
-         if(mapSvg){
-            const {width, height} = window.getComputedStyle(mapSvg);
-            const mapWidth = parseInt(width.substring(0, width.length - 2), 10);
-            const mapHeight = mapWidth / 1.55;
-            const offsetX = clientWidth > mapWidth ? ( clientWidth - mapWidth ) / 2 : 0;
-            const offsetY = parseInt(height.substring(0, height.length - 2), 10) - mapHeight;
-            console.log(offsetY);
-            const style = {left: x * mapWidth + offsetX - 16 , top: y * mapHeight + offsetY - 16}
-            return <div className="map-pin" style={style}>
-                <embed src={svgUrl}></embed>
-            </div>
-         }
+        //  if(mapSvg){
+        //     const {width, height} = window.getComputedStyle(mapSvg);
+        //     const mapWidth = parseInt(width.substring(0, width.length - 2), 10);
+        //     const mapHeight = mapWidth / 1.55;
+        //     const offsetX = clientWidth > mapWidth ? ( clientWidth - mapWidth ) / 2 : 0;
+        //     const offsetY = parseInt(height.substring(0, height.length - 2), 10) - mapHeight;
+        //     console.log(offsetY);
+        //     const style = {left: x * mapWidth + offsetX - 16 , top: y * mapHeight + offsetY - 16}
+        //     return <div className="map-pin" style={style}>
+        //         <embed src={svgUrl}></embed>
+        //     </div>
+        //  }
          
         //  const offsetX = (screenWidth - mapWidth) / 2;
         //  const offsetY = (document.body.clientHeight)
-         return <div>
+         return <div/>
 
-         </div>
     }
     render() {
         const svgMap = this.getMapSvg();

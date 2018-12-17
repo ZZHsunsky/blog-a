@@ -3,7 +3,7 @@ import './home.less';
 import {AjaxGetRequest, server} from "../service";
 import {URLMAPCODE} from "../urlMap";
 import Loading from "../loading/Loading";
-import { Parallax } from 'rc-scroll-anim';
+import navHandle from "../navagition/navHandle";
 
 export default class HomeContent extends React.Component{
 
@@ -21,6 +21,7 @@ export default class HomeContent extends React.Component{
   ];
 
   imgsLoad = [];
+  imgsLoadNumber = 0;
 
   componentDidMount() {
     const success = res => {
@@ -36,30 +37,23 @@ export default class HomeContent extends React.Component{
     AjaxGetRequest(URLMAPCODE.GET_LOGS, {}, success, () => {});
     this.imgs.map( imgUrl => {
       const image = new Image();
+      image.onload = this.imgIsLoad();
       image.src = imgUrl;
       this.imgsLoad.push(image);
       return null;
     })
-    this.imgIsLoad();
+    window.addEventListener("scroll" , this.handleScroll);
+  }
+
+  componentWillUnmount(){
+    navHandle.setClassName("");
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   imgIsLoad  = () =>{
-
-    const self = this;
-    let count = 0;
-
-    this.imgsLoad.map( img => {
-      if(img.width){
-        count ++;
-      }
-      return null;
-    })  
-    if(count === this.imgs.length && this.state.logs.length > 0 ){
-        this.setState({ready: true});
-    }else{
-      setTimeout(function(){
-        self.imgIsLoad();
-      }, 2000);
+    this.imgsLoadNumber ++ ;
+    if(this.imgsLoadNumber === this.imgs.length){
+      this.setState({ready: true})
     }
   }
 
@@ -97,9 +91,9 @@ export default class HomeContent extends React.Component{
     return(
       logs.map(( log, _) => {
         return (
-         <Parallax
-          animation={{opacity: 1, playScale: [0.2, 0.6], y: 0}}
-          style={{opacity: 0, transform: "translateY(50px)"}}
+         <div
+          // animation={{opacity: 1, playScale: [0.2, 0.6], y: 0}}
+          // style={{opacity: 0, transform: "translateY(50px)"}}
           className="home-log-container" key={_} onClick={this.goToOpenLog(log.id)}
          >
             <div className='log-img' style={{backgroundImage:"url(" + server + "/pic/" + log.imgName + ")"}}>
@@ -109,7 +103,7 @@ export default class HomeContent extends React.Component{
               <div>{log.day}</div>
               <p>{log.content}</p>
             </div>
-         </Parallax>
+         </div>
         )
       })
     )
@@ -121,9 +115,17 @@ export default class HomeContent extends React.Component{
     }
   }
 
+  handleScroll = () => {
+    if(window.scrollY >= document.body.clientHeight){
+      navHandle.setClassName("");
+    }else{
+      navHandle.setClassName("no-bg");
+    }
+  }
   render() {
     const ready = this.state.ready;
     const logs = this.getLogs();
+
     return ready ? (<div id="home-container">
       <header className="banner" style={{height: document.body.clientHeight || window.clientHeight}}>
         <span className="background"></span>
@@ -133,7 +135,7 @@ export default class HomeContent extends React.Component{
       <div>
         {logs}
       </div>
-    </div>) : <Loading noMenuButton={true}/>
+    </div>) : <Loading noMenuButton={"no-bg"}/>
   }
 }
 
